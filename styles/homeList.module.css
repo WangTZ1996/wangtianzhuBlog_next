@@ -1,0 +1,33 @@
+.content {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    flex: 1;
+    position: relative;
+}
+.contentList {
+    flex-shrink: 0;
+    width: 740px;
+    overflow-y: auto;
+    padding: 0 40px;
+    padding-bottom: 50vh;
+}
+.contentList .contentListInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    gap: 24px;
+}
+
+.contentList::-webkit-scrollbar {
+    width: 0;
+}
+
+.leftMenu {
+    flex: 1;
+}
+
+.rightBar {
+    flex: 1;
+}
