@@ -69,9 +69,7 @@ export default function Home() {
         setNewmsg(msg)
       }, 3000 * (index));
     })
-  }, [])
-
-  useEffect(() => {
+    
     let video = window.document.getElementsByTagName('video')[0]
 
     let w = window.innerWidth
@@ -82,11 +80,8 @@ export default function Home() {
     })
 
     function scrollFunc(e) {
-      // e存在就用e不存在就用windon.event
       e = e || window.event;
-      // 先判断是什么浏览器
       if (e.wheelDelta) {
-        // 浏览器IE，谷歌
         if (e.wheelDelta > 0) {
           scrollNum > 0 && setScrollNum(scrollNum --)
         }
@@ -105,7 +100,6 @@ export default function Home() {
         video.style.width = nw
       } 
     }
-
     window.onmousewheel = document.onmousewheel = scrollFunc
   }, [])
 
