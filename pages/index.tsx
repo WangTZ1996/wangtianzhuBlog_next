@@ -114,6 +114,7 @@ export default function Home() {
       <Head>
         <title>王天柱的blog</title>
         <meta name="description" content="王天柱的blog" />
+        <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
