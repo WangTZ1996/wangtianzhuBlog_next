@@ -1,6 +1,9 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import Head from 'next/head'
+import Image from 'next/image'
+import { Form, Input } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 import { Inter } from '@next/font/google'
 import { PageHeader, BlogCard } from '@/components'
 import type { BlogCardProps } from '@/components'
@@ -116,7 +119,32 @@ export default function Home() {
         <PageHeader msg={newmsg} />
         <div className={listStyles.content}>
           <div className={listStyles.leftMenu}>
-
+            <div className={listStyles.searcher}>
+              <SearchOutlined style={{ marginRight: '8px', color: '#aaa' }} />
+              <Form style={{ flex: 1 }}>
+                <Form.Item style={{ marginBottom: 0 }}>
+                  <input />
+                </Form.Item>
+              </Form>
+            </div>
+            <div className={listStyles.classesIcon}>
+              <div className={listStyles.iconColumn}>
+                <Image width={32} height={32} src="https://www.wangtz.cn/image/git.png" alt="icon" />
+                <Image width={40} height={40} src="https://www.wangtz.cn/image/Frame.png" alt="icon" />
+                <Image width={32} height={32} src="https://www.wangtz.cn/image/react.png" alt="icon" />
+              </div>
+              <div className={listStyles.iconColumn}>
+                <Image width={40} height={40} src="https://www.wangtz.cn/image/css.png" alt="icon" />
+                <Image width={48} height={48} src="https://www.wangtz.cn/image/html.png" alt="icon" />
+                <Image width={48} height={48} src="https://www.wangtz.cn/image/js.png" alt="icon" />
+                <Image width={40} height={40} src="https://www.wangtz.cn/image/node.png" alt="icon" />
+              </div>
+              <div className={listStyles.iconColumn}>
+                <Image width={32} height={32} src="https://www.wangtz.cn/image/mongodb.png" alt="icon" />
+                <Image width={40} height={40} src="https://www.wangtz.cn/image/vue.png" alt="icon" />
+                <Image width={32} height={32} src="https://www.wangtz.cn/image/ts.jpg" alt="icon" />
+              </div>
+            </div>
           </div>
           <div className={listStyles.contentList}>
             <div className={listStyles.contentListInner}>
