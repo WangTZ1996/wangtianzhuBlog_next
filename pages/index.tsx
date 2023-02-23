@@ -10,11 +10,14 @@ import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
 
+import Wallet from '@/utils/wallet'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
   const [newmsg, setNewmsg] = useState('');
+  const [account, setAccount] = useState('');
   let [scrollNum, setScrollNum] = useState(0);
 
   const totalStep = 100
@@ -63,6 +66,20 @@ export default function Home() {
       title: 'shot shot shot',
     },
   ]
+
+  // const initMETAMASKListener = async () => {
+  //   if (Wallet) {
+  //     Wallet.addChainChangeListener(updateWallet)
+  //     Wallet.addAccountChangeListener(updateWallet)
+  //   }
+  // }
+
+  const connectWallet = async () => {
+      await Wallet.connect('metamask')
+
+      const address = await Wallet.account()
+      setAccount(address)
+  }
 
   const [blogs, setBlogs] = useState<BlogCardProps>(blogsData)
 
@@ -116,7 +133,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <PageHeader msg={newmsg} />
+        <PageHeader msg={newmsg} connectWallet={connectWallet} account={account} />
         <div className={listStyles.content}>
           <div className={listStyles.leftMenu}>
             <div className={listStyles.searcher}>

@@ -3,14 +3,18 @@ import Image from "next/image";
 import down from '@/assets/icons/down.png';
 import styles from './index.module.css'
 
+import { showAddress } from '@/utils'
+
 interface PageHeaderProp {
-    msg: string
+    msg: string,
+    connectWallet: any,
+    account: string,
 }
 
 export const PageHeader = (props: PageHeaderProp) => {
-    const { msg } = props
+    const { msg, connectWallet, account } = props
 
-    const [curmsg, setCurmsg] = useState('');
+    const [curmsg, setCurmsg] = useState('')
     const [getNewMsg, setGetNewMsg] = useState(false)
 
     useEffect(() => {
@@ -31,9 +35,14 @@ export const PageHeader = (props: PageHeaderProp) => {
                     <div className={styles.msgItem}><Image className={styles.msgicon} src={down} alt="msgicon" />{ curmsg }</div>
                 </div>
             </div>
-            <div className={styles.wallet}>
-                { 'connect wallet' }
-            </div>
+            {
+                account ? <div className={styles.wallet}>
+                    { showAddress(account, 6) }
+                </div> : <div onClick={connectWallet} className={styles.wallet}>
+                    { 'connect wallet' }
+                </div>
+            }
         </div>
     )
 }
+
