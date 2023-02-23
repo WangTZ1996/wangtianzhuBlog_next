@@ -72,4 +72,13 @@
 
 .rightBar {
     flex: 1;
+    padding-top: 20px;
+}
+
+.rightBar .menu {
+    color: #868c92;
+    font-size: 12px;
+    display: flex;
+    gap: 4px;
+    margin-bottom: 6px;
 }

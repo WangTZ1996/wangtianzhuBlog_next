@@ -156,7 +156,13 @@ export default function Home() {
             </div>
           </div>
           <div className={listStyles.rightBar}>
-
+            <p className={listStyles.menu}>
+              <a href="https://www.wangtz.cn/resume">关于我</a>|
+              <a href="">开放api服务</a>|
+              <a href="https://www.wangtz.cn/dailymd">在线markdown编辑器</a>|
+              <a href="">下载应用</a>
+            </p>
+            <p className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>
         </div>
       </main>
