@@ -21,13 +21,31 @@
     color: #000;
     font-size: 16px;
     font-weight: 700;
-    border-radius: 0 0 12px 12px;
 }
 
 .fullScreen {
     position: fixed;
     height: 100%;
     z-index: 99;
+}
+
+.back {
+    animation: 2s back forwards;
+}
+
+.cardBack {
+    animation: 2s cardBack forwards;
+}
+
+@keyframes back {
+    100% {
+        width: 660px;
+    }
+}
+@keyframes cardBack {
+    100% {
+        background-color: rgba(0, 0, 0, 0);
+    }
 }
 
 

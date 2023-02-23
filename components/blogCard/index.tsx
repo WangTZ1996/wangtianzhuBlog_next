@@ -6,6 +6,7 @@ import styles from './index.module.css'
 
 export interface BlogCardProps {
     id: string | number,
+    back?: boolean,
     videoSrc?: string,
     coverSrc?: string,
     isAutoPlay?: boolean,
@@ -17,12 +18,12 @@ export interface BlogCardProps {
 }
 
 export const BlogCard = (props: BlogCardProps) => {
-    const { videoSrc, coverSrc, isAutoPlay, isMuted, isLoop, isFullScreen, background, title } = props
+    const { videoSrc, coverSrc, isAutoPlay, isMuted, isLoop, isFullScreen, background, title, back } = props
 
     return (
-        <div style={{ 'background-color': background || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card ].join(' ')}>
+        <div style={{ 'background-color': background || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card, back ? styles.cardBack : '' ].join(' ')}>
             {
-                videoSrc && checkVideo(videoSrc) ? <video preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={false} loop={isLoop} >
+                videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={false} loop={isLoop} >
                     <source src={videoSrc}></source>
                 </video> : <Image src={coverSrc} alt=''></Image>
             }

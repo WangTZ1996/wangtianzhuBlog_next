@@ -19,6 +19,7 @@ export default function Home() {
   const [newmsg, setNewmsg] = useState('');
   const [account, setAccount] = useState('');
   let [scrollNum, setScrollNum] = useState(0);
+  const [timer, setTimer] = useState()
 
   const totalStep = 100
 
@@ -37,6 +38,7 @@ export default function Home() {
   const blogsData = [
     {
       id: '0',
+      back: false,
       videoSrc: 'https://www.wangtz.cn/videos/carding.mp4',
       coverSrc: '',
       isAutoPlay: true,
@@ -47,6 +49,7 @@ export default function Home() {
     },
     {
       id: '1',
+      back: false,
       videoSrc: 'https://www.wangtz.cn/videos/carding.mp4',
       coverSrc: '',
       isAutoPlay: false,
@@ -57,6 +60,7 @@ export default function Home() {
     },
     {
       id: '2',
+      back: false,
       videoSrc: 'https://www.wangtz.cn/videos/archery.mp4',
       coverSrc: '',
       isAutoPlay: false,
@@ -66,13 +70,6 @@ export default function Home() {
       title: 'shot shot shot',
     },
   ]
-
-  // const initMETAMASKListener = async () => {
-  //   if (Wallet) {
-  //     Wallet.addChainChangeListener(updateWallet)
-  //     Wallet.addAccountChangeListener(updateWallet)
-  //   }
-  // }
 
   const connectWallet = async () => {
       await Wallet.connect('metamask')
@@ -97,6 +94,31 @@ export default function Home() {
 
     video.addEventListener('ended', () => {
       console.log('video end')
+      if (blogs[0].isFullScreen) {
+        blogs[0].back = true
+
+        let newBlogs = JSON.parse(JSON.stringify(blogs))
+        setBlogs(newBlogs)
+
+        let arr = []
+
+        let t = setTimeout(() => {
+          arr.forEach((ti) => {
+            clearTimeout(ti)
+          })
+          window.onmousewheel = document.onmousewheel = () => {}
+          console.log(blogs.length, 'blogs length')
+          blogs[0].isFullScreen = false
+          blogs.splice(1, 1)
+
+          let newBolgs = JSON.parse(JSON.stringify(blogs))
+
+          setBlogs(newBolgs)
+          setScrollNum(100)
+        }, 2000);
+        arr.push(t)
+        setTimer(arr)
+      }
     })
 
     function scrollFunc(e) {
