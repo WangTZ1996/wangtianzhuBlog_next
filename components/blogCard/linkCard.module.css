@@ -1,3 +1,29 @@
 .linkCard {
-    
+    width: 100%;
+    /* padding-top: 12px; */
+}
+.linkCard .addressBar {
+    padding: 6px 20px;
+    background: #ddd;
+    width: 100%;
+    border-radius: 100px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+.linkCard .addressBar a {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #2440b3;
+    display: flex;
+    align-items: center;
+}
+.linkCard .title {
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+.linkCard .desc {
+    font-size: 12px;
+    color: #999;
 }

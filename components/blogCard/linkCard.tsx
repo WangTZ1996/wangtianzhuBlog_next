@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
 import { checkVideo } from "@/utils";
+import { StarOutlined } from '@ant-design/icons'
 import styles from './linkCard.module.css'
 
 export interface LinkCardProps {
@@ -14,13 +15,25 @@ export interface LinkCardProps {
     isFullScreen?: boolean,
     background?: string,
     title?: string,
+    description?: string,
+    source?: string,
 }
 
 export const LinkCard = (props: LinkCardProps) => {
+    const { href, title, description } = props;
 
     return (
-        <div className={styles}>
-
+        <div className={styles.linkCard}>
+            <div className={styles.addressBar}>
+                <a href={href} target="_blank" rel="noreferrer">
+                    { href }
+                    <StarOutlined style={{ fontSize: '20px', marginLeft: 'auto' }}/>
+                </a>
+            </div>
+            <a href={href} target="_blank" rel="noreferrer">
+                <h2 className={styles.title}>{ title }</h2>
+            </a>
+            <div className={styles.desc}>{ description }</div>
         </div>
     )
 }

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Form, Input } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import { Inter } from '@next/font/google'
-import { PageHeader, BlogCard } from '@/components'
+import { PageHeader, BlogCard, LinkCard } from '@/components'
 import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
@@ -57,6 +57,15 @@ export default function Home() {
       isLoop: true,
       isFullScreen: false,
       title: '日常卡丁车练习',
+    },
+    {
+      id: '3',
+      href: 'https://blog.csdn.net/weixin_44955769/article/details/114690661',
+      type: 'tech_link',
+      title: 'JavaScript 代码执行顺序（一目了然）_文i的博客-CSDN博客_js执行顺序',
+      description: `前言之前对js的执行顺序一直搞得很迷茫，最近考虑换跳槽，又仔细回顾了下这块，又给捡起来了JavaScript 代码执行顺序1.  js的执行顺序，先同步后异步2.  异步中任务队列的执行顺序： 先微任务microtask队列，再宏任务macrotask队列(微任务优先级高于宏任务的前提是：同步代码已经执
+行完成。)3. Promise 里边的代码属于同步代码，.then() 中执行的代码才属于异步代码微任务包括 process.nextTick ，promise ，MutationObser`,
+      source: 'crawler'
     },
     {
       id: '2',
@@ -189,6 +198,8 @@ export default function Home() {
             <div className={listStyles.contentListInner}>
               {
                 blogs.map((blogProps: BlogCardProps) => (
+                  blogProps?.type === 'tech_link' ?
+                  <LinkCard key={blogProps.id} {...blogProps}></LinkCard> :
                   <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.id} {...blogProps}></BlogCard>
                 ))
               }

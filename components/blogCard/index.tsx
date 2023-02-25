@@ -28,9 +28,9 @@ export const BlogCard = (props: BlogCardProps) => {
                 </video> : <Image src={coverSrc} alt=''></Image>
             }
             {
-                isFullScreen ? null : <div className={styles.info}>
+                isFullScreen ? null : <h2 className={styles.info}>
                     { title }
-                </div>
+                </h2>
             }
         </div>
     )
