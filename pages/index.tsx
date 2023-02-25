@@ -45,6 +45,7 @@ export default function Home() {
       isMuted: true,
       isLoop: false,
       isFullScreen: true,
+      isShowController: false,
       title: '日常卡丁车练习',
     },
     {
@@ -55,6 +56,7 @@ export default function Home() {
       isAutoPlay: false,
       isMuted: true,
       isLoop: true,
+      isShowController: false,
       isFullScreen: false,
       title: '日常卡丁车练习',
     },
@@ -75,9 +77,21 @@ export default function Home() {
       isAutoPlay: false,
       isMuted: true,
       isLoop: false,
+      isShowController: true,
       isFullScreen: false,
       title: 'shot shot shot',
     },
+    {
+      id: '4',
+      href: 'https://blog.51cto.com/u_15127641/2874133',
+      type: 'tech_link',
+      title: 'Postfix + Dovecot + MySQL 搭建邮件服务器_51CTO博客_linux搭建postfix邮件服务器',
+      description: `Postfix + Dovecot + MySQL 搭建邮件服务器，2015年写的老文章，之前的博客丢失之后恢复。虽然内容可能部分过时，再发出来希望能有
+    点作用。网上有很多使用Postfix搭建邮件服务器的文章，但目前貌似没有看到较为完整的一篇。本例将尝试在Ubuntu系统中使用Postfix+Dovecot+MySQL搭建
+    邮件服务。说到邮件服务器，网上有许多不同解决方案。Window操作系统下常见的邮件服务器有hMailServer、MailEnable、E`,
+      keywords: 'Postfix + Dovecot + MySQL 搭建邮件服务器,MySQL博客,51CTO博客',
+      source: 'crawler'
+    }
   ]
 
   const connectWallet = async () => {
@@ -157,8 +171,8 @@ export default function Home() {
   return (
     <div id="pageOuter" className={listStyles.pageOuter}>
       <Head>
-        <title>王天柱的blog</title>
-        <meta name="description" content="王天柱的blog" />
+        <title>王天柱的博客</title>
+        <meta name="description" content="王天柱的博客" />
         <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -211,6 +225,9 @@ export default function Home() {
               <a href="">开放api服务</a>|
               <a href="https://www.wangtz.cn/dailymd">在线markdown编辑器</a>|
               <a href="">下载应用</a>
+            </p>
+            <p className={listStyles.menu}>
+              <a href="">技术剪报</a>
             </p>
             <p className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>

@@ -14,16 +14,17 @@ export interface BlogCardProps {
     isLoop?: boolean,
     isFullScreen?: boolean,
     background?: string,
+    isShowController?: boolean,
     title?: string,
 }
 
 export const BlogCard = (props: BlogCardProps) => {
-    const { videoSrc, coverSrc, isAutoPlay, isMuted, isLoop, isFullScreen, background, title, back } = props
+    const { videoSrc, coverSrc, isAutoPlay, isMuted, isLoop, isFullScreen, background, title, back, isShowController } = props
 
     return (
         <div style={{ 'background-color': background || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card, back ? styles.cardBack : '' ].join(' ')}>
             {
-                videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={false} loop={isLoop} >
+                videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={isShowController} loop={isLoop} >
                     <source src={videoSrc}></source>
                 </video> : <Image src={coverSrc} alt=''></Image>
             }
