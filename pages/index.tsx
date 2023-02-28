@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from "next/link";
 import { Form, Input } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import { Inter } from '@next/font/google'
@@ -246,7 +247,7 @@ export default function Home() {
             </p>
             <p className={listStyles.menu}>
               <a href="">技术剪报</a>|
-              <a href="/crawler">爬虫</a>
+              <Link href="/crawler">爬虫</Link>
             </p>
             <p className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>
