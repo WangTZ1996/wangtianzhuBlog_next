@@ -10,6 +10,8 @@ import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
 
+import { collection_blogs } from "@/api";
+
 import Wallet from '@/utils/wallet'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -37,7 +39,7 @@ export default function Home() {
 
   const blogsData = [
     {
-      id: '0',
+      blogid: '0',
       back: false,
       videoSrc: 'https://www.wangtz.cn/videos/carding.mp4',
       coverSrc: '',
@@ -49,7 +51,7 @@ export default function Home() {
       title: '日常卡丁车练习',
     },
     {
-      id: '1',
+      blogid: '1',
       back: false,
       videoSrc: 'https://www.wangtz.cn/videos/carding.mp4',
       coverSrc: '',
@@ -61,16 +63,17 @@ export default function Home() {
       title: '日常卡丁车练习',
     },
     {
-      id: '3',
+      blogid: '3',
       href: 'https://blog.csdn.net/weixin_44955769/article/details/114690661',
       type: 'tech_link',
       title: 'JavaScript 代码执行顺序（一目了然）_文i的博客-CSDN博客_js执行顺序',
       description: `前言之前对js的执行顺序一直搞得很迷茫，最近考虑换跳槽，又仔细回顾了下这块，又给捡起来了JavaScript 代码执行顺序1.  js的执行顺序，先同步后异步2.  异步中任务队列的执行顺序： 先微任务microtask队列，再宏任务macrotask队列(微任务优先级高于宏任务的前提是：同步代码已经执
 行完成。)3. Promise 里边的代码属于同步代码，.then() 中执行的代码才属于异步代码微任务包括 process.nextTick ，promise ，MutationObser`,
+      keywords: '',
       source: 'crawler'
     },
     {
-      id: '2',
+      blogid: '2',
       back: false,
       videoSrc: 'https://www.wangtz.cn/videos/archery.mp4',
       coverSrc: '',
@@ -82,7 +85,7 @@ export default function Home() {
       title: 'shot shot shot',
     },
     {
-      id: '4',
+      blogid: '4',
       href: 'https://blog.51cto.com/u_15127641/2874133',
       type: 'tech_link',
       title: 'Postfix + Dovecot + MySQL 搭建邮件服务器_51CTO博客_linux搭建postfix邮件服务器',
@@ -101,9 +104,19 @@ export default function Home() {
       setAccount(address)
   }
 
-  const [blogs, setBlogs] = useState<BlogCardProps>(blogsData)
+  const [blogsCover, setBlogsCover] = useState<BlogCardProps>(blogsData)
+  const [blogs, setBlogs] = useState<BlogCardProps>([])
+
+  const testApi = async () => {
+    const data = await collection_blogs({})
+
+    const temp = [...blogs, ...data.data]
+    setBlogs(temp)
+  }
 
   useEffect(() => {
+    testApi()
+
     msgList.forEach((msg: string, index: number) => {
       setTimeout(() => {
         setNewmsg(msg)
@@ -117,11 +130,11 @@ export default function Home() {
 
     video.addEventListener('ended', () => {
       console.log('video end')
-      if (blogs[0].isFullScreen) {
-        blogs[0].back = true
+      if (blogsCover[0].isFullScreen) {
+        blogsCover[0].back = true
 
-        let newBlogs = JSON.parse(JSON.stringify(blogs))
-        setBlogs(newBlogs)
+        let newBlogs = JSON.parse(JSON.stringify(blogsCover))
+        setBlogsCover(newBlogs)
 
         let arr = []
 
@@ -130,13 +143,13 @@ export default function Home() {
             clearTimeout(ti)
           })
           window.onmousewheel = document.onmousewheel = () => {}
-          console.log(blogs.length, 'blogs length')
-          blogs[0].isFullScreen = false
-          blogs.splice(1, 1)
 
-          let newBolgs = JSON.parse(JSON.stringify(blogs))
+          blogsCover[0].isFullScreen = false
+          blogsCover.splice(1, 1)
 
-          setBlogs(newBolgs)
+          let newBolgs = JSON.parse(JSON.stringify(blogsCover))
+
+          setBlogsCover(newBolgs)
           setScrollNum(100)
         }, 2000);
         arr.push(t)
@@ -155,18 +168,23 @@ export default function Home() {
         }
         if (scrollNum === totalStep) {
           window.onmousewheel = document.onmousewheel = () => {}
-          let newBolgs = blogs
+          let newBolgs = blogsCover
           newBolgs[0].isFullScreen = false
           newBolgs.splice(1, 1)
 
-          setBlogs(newBolgs)
+          setBlogsCover(newBolgs)
         }
         let nw = (w - step * scrollNum) + 'px'
         video.style.width = nw
       } 
     }
+
     window.onmousewheel = document.onmousewheel = scrollFunc
   }, [])
+
+  useEffect(() => {
+    console.log(blogs, 'blogs')
+  }, [blogs])
 
   return (
     <div id="pageOuter" className={listStyles.pageOuter}>
@@ -211,10 +229,10 @@ export default function Home() {
           <div className={listStyles.contentList}>
             <div className={listStyles.contentListInner}>
               {
-                blogs.map((blogProps: BlogCardProps) => (
+                [...blogsCover, ...blogs].map((blogProps: BlogCardProps) => (
                   blogProps?.type === 'tech_link' ?
-                  <LinkCard key={blogProps.id} {...blogProps}></LinkCard> :
-                  <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.id} {...blogProps}></BlogCard>
+                  <LinkCard key={blogProps.blogid} {...blogProps}></LinkCard> :
+                  <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.blogid} {...blogProps}></BlogCard>
                 ))
               }
             </div>
@@ -227,7 +245,8 @@ export default function Home() {
               <a href="">下载应用</a>
             </p>
             <p className={listStyles.menu}>
-              <a href="">技术剪报</a>
+              <a href="">技术剪报</a>|
+              <a href="/crawler">爬虫</a>
             </p>
             <p className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>

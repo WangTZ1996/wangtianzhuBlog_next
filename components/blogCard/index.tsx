@@ -5,7 +5,7 @@ import { checkVideo } from "@/utils";
 import styles from './index.module.css'
 
 export interface BlogCardProps {
-    id: string | number,
+    blogid: string | number,
     back?: boolean,
     videoSrc?: string,
     coverSrc?: string,

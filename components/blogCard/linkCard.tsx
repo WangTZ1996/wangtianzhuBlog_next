@@ -1,12 +1,13 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
-import { checkVideo } from "@/utils";
+import { checkVideo, useCopy } from "@/utils";
 import { StarOutlined, CopyOutlined } from '@ant-design/icons'
 import styles from './linkCard.module.css'
+import { message } from "antd";
 
 export interface LinkCardProps {
-    id: string | number,
+    blogid: string | number,
     videoSrc?: string,
     coverSrc?: string,
     isAutoPlay?: boolean,
@@ -22,6 +23,13 @@ export interface LinkCardProps {
 export const LinkCard = (props: LinkCardProps) => {
     const { href, title, description } = props;
 
+    const copyHandler = useCopy()
+
+    const copyFn = (href: string) => {
+        copyHandler(href)
+        message.success('url 已复制到剪切板')
+    }
+
     return (
         <div className={styles.linkCard}>
             <div className={styles.addressBar}>
@@ -29,7 +37,7 @@ export const LinkCard = (props: LinkCardProps) => {
                     { href }
                     {/* <StarOutlined style={{ fontSize: '20px', marginLeft: 'auto' }}/> */}
                 </a>
-                <CopyOutlined style={{ fontSize: '20px', marginLeft: '4px', cursor: 'pointer',color: '#2440b3' }}/>
+                <CopyOutlined onClick={() => copyFn(href)} style={{ fontSize: '20px', marginLeft: '4px', cursor: 'pointer',color: '#2440b3' }}/>
             </div>
             <a href={href} target="_blank" rel="noreferrer">
                 <h2 className={styles.title}>{ title }</h2>
