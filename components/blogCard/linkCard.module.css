@@ -18,6 +18,7 @@
     color: #2440b3;
     display: flex;
     align-items: center;
+    white-space: nowrap;
 }
 .linkCard .title {
     margin-top: 8px;
