@@ -3,9 +3,8 @@ import React, { useState, useEffect } from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
-import { Form, Input } from 'antd'
+import { Form } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
-import { Inter } from '@next/font/google'
 import { PageHeader, BlogCard, LinkCard } from '@/components'
 import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
@@ -15,28 +14,13 @@ import { collection_blogs } from "@/api";
 
 import Wallet from '@/utils/wallet'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
 
   const [newmsg, setNewmsg] = useState('');
   const [account, setAccount] = useState('');
   let [scrollNum, setScrollNum] = useState(0);
-  const [timer, setTimer] = useState()
 
   const totalStep = 100
-
-  const msgList = [
-    'Hello我是王天柱',
-    '一个爱画画的前端程序员',
-    '欢迎来到我的博客',
-    '向下滚动鼠标即可退出全屏播放',
-    '我喜欢做一些有意思的东西',
-    '我会在这里分享出来',
-    '如果你也和我一样',
-    '希望我的博客能对你有帮助',
-    '我们一同进步！',
-  ]
 
   const blogsData = [
     {
@@ -114,16 +98,23 @@ export default function Home() {
     const temp = [...blogs, ...data.data]
     setBlogs(temp)
   }
+  const initWS = async () => {
+    let Socket = new WebSocket("wss://www.wangtz.cn:8086");
 
-  useEffect(() => {
-    testApi()
-
-    msgList.forEach((msg: string, index: number) => {
-      setTimeout(() => {
-        setNewmsg(msg)
-      }, 3000 * (index));
+    Socket.addEventListener('open',function(){
+        console.log('websocket open success')
     })
-    
+
+    setTimeout(() => {
+      Socket.send('前端发送给后台的信息')
+    }, 3000);
+
+    Socket.onmessage = function (evt) {
+      setNewmsg(evt.data)
+      console.log(evt.data, "接收信息");
+    };
+  }
+  const initCover = async () => {
     let video = window.document.getElementsByTagName('video')[0]
 
     let w = window.innerWidth
@@ -154,7 +145,6 @@ export default function Home() {
           setScrollNum(100)
         }, 2000);
         arr.push(t)
-        setTimer(arr)
       }
     })
 
@@ -181,11 +171,13 @@ export default function Home() {
     }
 
     window.onmousewheel = document.onmousewheel = scrollFunc
-  }, [])
+  }
 
   useEffect(() => {
-    console.log(blogs, 'blogs')
-  }, [blogs])
+    testApi()
+    initWS()
+    initCover()
+  }, [])
 
   return (
     <div id="pageOuter" className={listStyles.pageOuter}>
@@ -240,14 +232,16 @@ export default function Home() {
           </div>
           <div className={listStyles.rightBar}>
             <p className={listStyles.menu}>
-              <a href="https://www.wangtz.cn/resume">关于我</a>|
-              <a href="">开放api服务</a>|
-              <a href="https://www.wangtz.cn/dailymd">在线markdown编辑器</a>|
-              <a href="">下载应用</a>
+              <a target={'_blank'} href="https://www.wangtz.cn/resume" rel="noreferrer">关于我</a>|
+              <a target={'_blank'} href="" rel="noreferrer">开放api服务</a>|
+              <a target={'_blank'} href="https://www.wangtz.cn/dailymd" rel="noreferrer">在线markdown编辑器</a>|
+              <a target={'_blank'} href="" rel="noreferrer">下载应用</a>
             </p>
             <p className={listStyles.menu}>
-              <a href="">技术剪报</a>|
-              <Link href="/crawler">爬虫</Link>
+              <a target={'_blank'} href="" rel="noreferrer">生活</a>|
+              <a target={'_blank'} href="" rel="noreferrer">技术剪报</a>|
+              <a target={'_blank'} href="" rel="noreferrer">随笔</a>|
+              <Link target={'_blank'} href="/crawler">爬虫</Link>
             </p>
             <p className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>

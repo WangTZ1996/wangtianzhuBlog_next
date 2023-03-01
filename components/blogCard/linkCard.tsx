@@ -35,7 +35,6 @@ export const LinkCard = (props: LinkCardProps) => {
             <div className={styles.addressBar}>
                 <a href={href} target="_blank" rel="noreferrer">
                     { href }
-                    {/* <StarOutlined style={{ fontSize: '20px', marginLeft: 'auto' }}/> */}
                 </a>
                 <CopyOutlined onClick={() => copyFn(href)} style={{ fontSize: '20px', marginLeft: '4px', cursor: 'pointer',color: '#2440b3' }}/>
             </div>

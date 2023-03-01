@@ -56,17 +56,12 @@ export default function Crawler () {
                 }
                 <Form form={form} style={{ flex: 1 }}>
                     <Form.Item name={'fetchUrl'} style={{ marginBottom: 0 }}>
-                        <input />
+                        <input autoComplete="off"/>
                     </Form.Item>
                 </Form>
                 <SearchOutlined style={{ marginRight: '8px', marginLeft: '10px', color: '#aaa' }} />
             </div>
             { res ? <div className={styles.crawler_resData}>
-                {/* <pre style={{ whiteSpace: 'normal', wordWrap: 'break-word' }}>
-                    {
-                        JSON.stringify(res)
-                    }
-                </pre> */}
                 <LinkCard {...res}></LinkCard>
             </div> : null}
         </div>
