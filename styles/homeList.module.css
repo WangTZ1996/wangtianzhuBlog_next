@@ -47,6 +47,7 @@
     outline: none;
     width: 100%;
     height: 30px;
+    background: transparent;
 }
 
 .leftMenu .classesIcon {
@@ -68,6 +69,10 @@
 
 .leftMenu .classesIcon .iconColumn img {
     cursor: pointer;
+    background: #fff;
+    border-radius: 8px;
+    padding: 2px;
+    box-shadow: rgba(134, 110, 5, 0.47) 0px 1px
 }
 
 .rightBar {

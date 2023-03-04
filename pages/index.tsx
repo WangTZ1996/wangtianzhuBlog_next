@@ -178,7 +178,7 @@ export default function Home() {
     const data = await fetchBlogs({ keywords })
 
     setBlogsCover([])
-    setBlogs(data || [])
+    setShuffledList(data || [])
   }
   const screeningHandler = (e: any) => {
     for (let key in e.target) {
@@ -249,7 +249,7 @@ export default function Home() {
             }
             <div onClick={screeningHandler} className={listStyles.classesIcon}>
               <div className={listStyles.iconColumn}>
-                <Image __type={'git'} width={32} height={32} src="https://www.wangtz.cn/image/git.png" alt="icon" />
+                <Image __type={'chatGPT'} width={32} height={32} src="https://www.wangtz.cn/image/chatGPT.png" alt="icon" />
                 <Image __type={'metamask'} width={40} height={40} src="https://www.wangtz.cn/image/Frame.png" alt="icon" />
                 <Image __type={'react'} width={32} height={32} src="https://www.wangtz.cn/image/react.png" alt="icon" />
               </div>
