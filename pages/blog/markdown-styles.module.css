@@ -1,0 +1,12 @@
+.reactMarkDown {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 100px;
+    position: relative;
+}
+
+.reactMarkDown img {
+    width: 100%;
+}

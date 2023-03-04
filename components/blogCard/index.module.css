@@ -21,6 +21,10 @@
     color: #000;
     font-weight: 700;
 }
+.desc {
+    font-size: 12px;
+    color: #999;
+}
 
 .fullScreen {
     position: fixed;
@@ -34,6 +38,11 @@
 
 .cardBack {
     animation: 2s cardBack forwards;
+}
+
+.cover {
+    width: 100%;
+    height: fit-content;
 }
 
 @keyframes back {

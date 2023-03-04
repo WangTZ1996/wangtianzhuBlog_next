@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
@@ -10,15 +10,18 @@ import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
 
-import { collection_blogs } from "@/api";
+import { collection_blogs, origin_blogs } from "@/api";
 
 import Wallet from '@/utils/wallet'
 
 export default function Home() {
 
+  let [scrollNum, setScrollNum] = useState(0);
   const [newmsg, setNewmsg] = useState('');
   const [account, setAccount] = useState('');
-  let [scrollNum, setScrollNum] = useState(0);
+  const [startCountDown, setStartCountDown] = useState(false);
+  const [form] = Form.useForm()
+  const searchKeywords = Form.useWatch('searchKeywords', form)
 
   const totalStep = 100
 
@@ -90,14 +93,13 @@ export default function Home() {
   }
 
   const [blogsCover, setBlogsCover] = useState<BlogCardProps>(blogsData)
-  const [blogs, setBlogs] = useState<BlogCardProps>([])
+  const [shuffledList, setShuffledList] = useState<BlogCardProps>([])
 
-  const testApi = async () => {
-    const data = await collection_blogs({})
-
-    const temp = [...blogs, ...data.data]
-    setBlogs(temp)
+  const fetchBlogs = async (params: any) => {
+    const data = await collection_blogs(params)
+    return data.data
   }
+
   const initWS = async () => {
     let Socket = new WebSocket("wss://www.wangtz.cn:8086");
 
@@ -172,11 +174,53 @@ export default function Home() {
 
     window.onmousewheel = document.onmousewheel = scrollFunc
   }
+  const screening = async (keywords) => {
+    const data = await fetchBlogs({ keywords })
+
+    setBlogsCover([])
+    setBlogs(data || [])
+  }
+  const screeningHandler = (e: any) => {
+    for (let key in e.target) {
+      if (/__reactProps/.test(key)) {
+        let keywords = e.target[key].__type
+        screening(keywords)
+      }
+    }
+  }
+
+  const shuffle = (data: Array): Array => {
+    if (!data.length) return []
+    let res = [],
+        originData = [...data];
+
+    while (originData.length) {
+      res.push(originData.splice(Math.round(Math.random() * (originData.length - 1)), 1))
+    }
+
+    console.log(res, 'shuffle res')
+    return res.flat()
+  }
+
+  const initShuffledList = async () => {
+    let blogdata = await collection_blogs()
+    let articleData = await origin_blogs()
+
+    setShuffledList(shuffle([...blogdata.data, ...articleData.data]))
+  }
 
   useEffect(() => {
-    testApi()
-    initWS()
+    console.log(searchKeywords, 'searchKeywords')
+    setStartCountDown(false)
+    setTimeout(() => {
+      setStartCountDown(true)
+    });
+  }, [searchKeywords])
+
+  useEffect(() => {
     initCover()
+    initShuffledList()
+    initWS()
   }, [])
 
   return (
@@ -194,35 +238,38 @@ export default function Home() {
           <div className={listStyles.leftMenu}>
             <div className={listStyles.searcher}>
               <SearchOutlined style={{ marginRight: '8px', color: '#aaa' }} />
-              <Form style={{ flex: 1 }}>
-                <Form.Item style={{ marginBottom: 0 }}>
+              <Form form={form} style={{ flex: 1 }}>
+                <Form.Item name={'searchKeywords'} style={{ marginBottom: 0 }}>
                   <input />
                 </Form.Item>
               </Form>
             </div>
-            <div className={listStyles.classesIcon}>
+            {
+              searchKeywords ? <div className={ startCountDown ? listStyles.countDownLine_start : listStyles.countDownLine_stop }></div> : null
+            }
+            <div onClick={screeningHandler} className={listStyles.classesIcon}>
               <div className={listStyles.iconColumn}>
-                <Image width={32} height={32} src="https://www.wangtz.cn/image/git.png" alt="icon" />
-                <Image width={40} height={40} src="https://www.wangtz.cn/image/Frame.png" alt="icon" />
-                <Image width={32} height={32} src="https://www.wangtz.cn/image/react.png" alt="icon" />
+                <Image __type={'git'} width={32} height={32} src="https://www.wangtz.cn/image/git.png" alt="icon" />
+                <Image __type={'metamask'} width={40} height={40} src="https://www.wangtz.cn/image/Frame.png" alt="icon" />
+                <Image __type={'react'} width={32} height={32} src="https://www.wangtz.cn/image/react.png" alt="icon" />
               </div>
               <div className={listStyles.iconColumn}>
-                <Image width={40} height={40} src="https://www.wangtz.cn/image/css.png" alt="icon" />
-                <Image width={48} height={48} src="https://www.wangtz.cn/image/html.png" alt="icon" />
-                <Image width={48} height={48} src="https://www.wangtz.cn/image/js.png" alt="icon" />
-                <Image width={40} height={40} src="https://www.wangtz.cn/image/node.png" alt="icon" />
+                <Image __type={'css'} width={40} height={40} src="https://www.wangtz.cn/image/css.png" alt="icon" />
+                <Image __type={'html'} width={48} height={48} src="https://www.wangtz.cn/image/html.png" alt="icon" />
+                <Image __type={'js'} width={48} height={48} src="https://www.wangtz.cn/image/js.png" alt="icon" />
+                <Image __type={'node'} width={40} height={40} src="https://www.wangtz.cn/image/node.png" alt="icon" />
               </div>
               <div className={listStyles.iconColumn}>
-                <Image width={32} height={32} src="https://www.wangtz.cn/image/mongodb.png" alt="icon" />
-                <Image width={40} height={40} src="https://www.wangtz.cn/image/vue.png" alt="icon" />
-                <Image width={32} height={32} src="https://www.wangtz.cn/image/ts.jpg" alt="icon" />
+                <Image __type={'chrome'} width={32} height={32} src="https://www.wangtz.cn/image/mongodb.png" alt="icon" />
+                <Image __type={'vue'} width={40} height={40} src="https://www.wangtz.cn/image/vue.png" alt="icon" />
+                <Image __type={'ts'} width={32} height={32} src="https://www.wangtz.cn/image/ts.jpg" alt="icon" />
               </div>
             </div>
           </div>
           <div className={listStyles.contentList}>
             <div className={listStyles.contentListInner}>
               {
-                [...blogsCover, ...blogs].map((blogProps: BlogCardProps) => (
+                [...blogsCover, ...shuffledList].map((blogProps: BlogCardProps, index: number) => (
                   blogProps?.type === 'tech_link' ?
                   <LinkCard key={blogProps.blogid} {...blogProps}></LinkCard> :
                   <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.blogid} {...blogProps}></BlogCard>

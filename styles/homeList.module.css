@@ -82,3 +82,27 @@
     gap: 4px;
     margin-bottom: 6px;
 }
+.countDownLine_stop {
+    height: 2px;
+    width: 100%;
+    background-color: chartreuse;
+    margin-top: 4px;
+    margin-left: 16px;
+}
+.countDownLine_start {
+    height: 2px;
+    width: 100%;
+    background-color: chartreuse;
+    animation: 2s countDown forwards linear;
+    margin-top: 4px;
+    margin-left: 16px;
+}
+
+@keyframes countDown {
+    form {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
