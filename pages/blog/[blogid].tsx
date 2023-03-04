@@ -36,7 +36,7 @@ export default function Blog () {
     return (
         <div style={{ width: '100vw', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Head>
-            <title>{ rawData.title }</title>
+            <title>{ `${rawData.title} | 王天柱的博客` }</title>
             <meta name="description" content={rawData.description} />
             <meta keywords={rawData.keywords}></meta>
             <meta name="google" content="notranslate" />
