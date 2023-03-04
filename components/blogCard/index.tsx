@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import Router from "next/router"
+import Link from "next/link";
 import Image from 'next/image'
 import { checkVideo } from "@/utils";
 import styles from './index.module.css'
@@ -27,28 +28,34 @@ export const BlogCard = (props: BlogCardProps) => {
 
     const routerSkip = (blogid) => {
         if (type === 'tech_article') {
-            return Router.push('/blog/' + blogid);
+            return Router.push({ pathname: '/blog/' + blogid}, undefined, { shallow: true });
         }
         return
     }
 
     return (
-        <div onClick={() => routerSkip(blogid)} style={{ 'background-color': background || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card, back ? styles.cardBack : '' ].join(' ')}>
-            {
-                videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={isShowController} loop={isLoop} >
-                    <source src={videoSrc}></source>
-                </video> : <img className={styles.cover} src={coverSrc} alt=''></img>
-            }
-            {
-                isFullScreen ? null : <h2 className={styles.info}>
-                    { title }
-                </h2>
-            }
-            {
-                isFullScreen ? null : <div className={styles.desc}>
-                    { description }
-                </div>
-            }
-        </div>
+            <div style={{ 'background-color': background || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card, back ? styles.cardBack : '' ].join(' ')}>
+                {
+                    videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={isShowController} loop={isLoop} >
+                        <source src={videoSrc}></source>
+                    </video> : <img className={styles.cover} src={coverSrc} alt=''></img>
+                }
+                {
+                    isFullScreen ? null : 
+                    <Link target={'_blank'} href={'/blog/' + blogid} style={{ width: '100%' }}>
+                        <h2 className={styles.info}>
+                            { title }
+                        </h2>
+                    </Link>
+                }
+                {
+                    isFullScreen ? null : 
+                    <Link target={'_blank'} href={'/blog/' + blogid} style={{ width: '100%' }}>
+                        <div className={styles.desc}>
+                            { description }
+                        </div>
+                    </Link>
+                }
+            </div>
     )
 }
