@@ -1,0 +1,82 @@
+.chatGPTCard {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatGPTCard .header {
+
+}
+.chatGPTCard .header .label {
+    border-radius: 10px 10px 0 0;
+    background: rgb(210, 105, 30, 0.6);
+    color: #fff;
+    padding: 2px 8px;
+    font-weight: 900;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.chatGPTCard .content {
+    position: relative;
+    background: rgb(210, 105, 30, 0.6);
+    flex: 1;
+    border-radius: 0 10px 10px 10px;
+    box-shadow: rgb(210, 105, 30, 1) 0px 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+    padding-top: 12px;
+}
+.chatGPTCard .content .session {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 20px;
+    flex-direction: column;
+    color: rgba(0, 0, 0, 0.9);
+    font-weight: 700;
+    white-space: break-spaces;
+    gap: 12px;
+    display: flex;
+    flex-flow: column-reverse;
+    align-items: baseline;
+}
+.chatGPTCard .content .session > div {
+    width: 100%;
+}
+.chatGPTCard .content .session::-webkit-scrollbar {
+    width: 0;
+}
+
+.chatGPTCard .content .inputBox {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 20px;
+}
+
+.chatGPTCard .content .inputBox .inputInner {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background-color: rgba(212, 135, 81, 0.8);
+    padding: 0 12px;
+    border-radius: 8px;
+}
+
+.chatGPTCard .content .inputBox .inputInner input {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 30px;
+    background: transparent;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.7);
+}

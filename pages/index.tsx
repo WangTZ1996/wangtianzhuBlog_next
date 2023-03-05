@@ -5,12 +5,12 @@ import Image from 'next/image'
 import Link from "next/link";
 import { Form } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
-import { PageHeader, BlogCard, LinkCard } from '@/components'
+import { PageHeader, BlogCard, LinkCard, CartGPTCard } from '@/components'
 import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
 
-import { collection_blogs, origin_blogs } from "@/api";
+import { collection_blogs, origin_blogs, testChatGPT } from "@/api";
 
 import Wallet from '@/utils/wallet'
 
@@ -37,6 +37,7 @@ export default function Home() {
       isFullScreen: true,
       isShowController: false,
       title: '日常卡丁车练习',
+      type: 'life_article'
     },
     {
       blogid: '1',
@@ -49,6 +50,11 @@ export default function Home() {
       isShowController: false,
       isFullScreen: false,
       title: '日常卡丁车练习',
+      type: 'life_article'
+    },
+    {
+      blogid: '5',
+      type: 'tech_app_chatGPT'
     },
     {
       blogid: '3',
@@ -71,6 +77,7 @@ export default function Home() {
       isShowController: true,
       isFullScreen: false,
       title: 'shot shot shot',
+      type: 'life_article'
     },
     {
       blogid: '4',
@@ -209,6 +216,18 @@ export default function Home() {
     setShuffledList(shuffle([...blogdata.data, ...articleData.data]))
   }
 
+  const blogCardRouter = (blogProps, index) => {
+    switch (blogProps.type) {
+      case 'tech_link': 
+        return <LinkCard key={blogProps.blogid} {...blogProps}></LinkCard>;
+      case 'life_article':
+      case 'tech_article':
+        return <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.blogid} {...blogProps}></BlogCard>;
+      case 'tech_app_chatGPT':
+        return <CartGPTCard />
+    }
+  }
+
   useEffect(() => {
     console.log(searchKeywords, 'searchKeywords')
     setStartCountDown(false)
@@ -221,6 +240,7 @@ export default function Home() {
     initCover()
     initShuffledList()
     initWS()
+    testChatGPT('2022年世界杯冠军是谁')
   }, [])
 
   return (
@@ -270,9 +290,10 @@ export default function Home() {
             <div className={listStyles.contentListInner}>
               {
                 [...blogsCover, ...shuffledList].map((blogProps: BlogCardProps, index: number) => (
-                  blogProps?.type === 'tech_link' ?
-                  <LinkCard key={blogProps.blogid} {...blogProps}></LinkCard> :
-                  <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.blogid} {...blogProps}></BlogCard>
+                  // blogProps?.type === 'tech_link' ?
+                  // <LinkCard key={blogProps.blogid} {...blogProps}></LinkCard> :
+                  // <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.blogid} {...blogProps}></BlogCard>
+                  blogCardRouter(blogProps, index)
                 ))
               }
             </div>

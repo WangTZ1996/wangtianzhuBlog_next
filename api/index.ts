@@ -1,4 +1,5 @@
 import request from "@/utils/request";
+import axios from "axios";
 
 export const collection_blogs = (params: any) => {
     return request({ 
@@ -30,4 +31,22 @@ export const fetch_blog = (params: any) => {
         method: 'post', 
         data: params 
     })
+}
+
+export const testChatGPT = async (prompt: string) => {
+    const response = await axios.post('https://api.openai.com/v1/completions', {
+        prompt,
+        max_tokens: 300,
+        model: "text-davinci-003"
+    }, 
+    {
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer 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'
+        }
+    }
+    )
+
+    console.log(response, 'response')
+    return response.data
 }
