@@ -44,7 +44,7 @@ export const testChatGPT = async (prompt: string) => {
     {
         headers: {
             'content-type': 'application/json',
-            'Authorization': 'Bearer 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'
+            'Authorization': 'Bearer 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'
         }
     }
     )
