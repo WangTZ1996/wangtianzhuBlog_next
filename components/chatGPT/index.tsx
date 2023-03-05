@@ -17,7 +17,7 @@ export const CartGPTCard = () => {
     const question = Form.useWatch('question', form)
 
     const askGPT = async () => {
-        let tempQ = [...dialogues, `我：${question}`]
+        let tempQ = [...dialogues, `我：${question}\n`]
         setDialogues(tempQ)
         setGptLoading(true)
         const answer: any = await testChatGPT(question)

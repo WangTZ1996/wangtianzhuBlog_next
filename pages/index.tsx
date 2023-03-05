@@ -240,7 +240,6 @@ export default function Home() {
     initCover()
     initShuffledList()
     initWS()
-    testChatGPT('2022年世界杯冠军是谁')
   }, [])
 
   return (
