@@ -34,6 +34,8 @@ export const fetch_blog = (params: any) => {
 }
 
 export const testChatGPT = async (prompt: string) => {
+    // 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
+
     const response = await axios.post('https://api.openai.com/v1/completions', {
         prompt,
         max_tokens: 300,
@@ -42,7 +44,7 @@ export const testChatGPT = async (prompt: string) => {
     {
         headers: {
             'content-type': 'application/json',
-            'Authorization': 'Bearer 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'
+            'Authorization': 'Bearer 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'
         }
     }
     )
