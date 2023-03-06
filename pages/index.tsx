@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from "next/link";
 import { Form } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
-import { PageHeader, BlogCard, LinkCard, CartGPTCard } from '@/components'
+import { PageHeader, BlogCard, LinkCard, CartGPTCard, MAPCard } from '@/components'
 import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
@@ -16,7 +16,7 @@ import Wallet from '@/utils/wallet'
 
 export default function Home() {
 
-  let [scrollNum, setScrollNum] = useState(0);
+  let   [scrollNum, setScrollNum] = useState(0);
   const [newmsg, setNewmsg] = useState('');
   const [account, setAccount] = useState('');
   const [startCountDown, setStartCountDown] = useState(false);
@@ -52,19 +52,37 @@ export default function Home() {
       title: '日常卡丁车练习',
       type: 'life_article'
     },
+    // {
+    //   blogid: '5',
+    //   type: 'tech_app_MAP'
+    // },
+//     {
+//       blogid: '3',
+//       href: 'https://blog.csdn.net/weixin_44955769/article/details/114690661',
+//       type: 'tech_link',
+//       title: 'JavaScript 代码执行顺序（一目了然）_文i的博客-CSDN博客_js执行顺序',
+//       description: `前言之前对js的执行顺序一直搞得很迷茫，最近考虑换跳槽，又仔细回顾了下这块，又给捡起来了JavaScript 代码执行顺序1.  js的执行顺序，先同步后异步2.  异步中任务队列的执行顺序： 先微任务microtask队列，再宏任务macrotask队列(微任务优先级高于宏任务的前提是：同步代码已经执
+// 行完成。)3. Promise 里边的代码属于同步代码，.then() 中执行的代码才属于异步代码微任务包括 process.nextTick ，promise ，MutationObser`,
+//       keywords: '',
+//       source: 'crawler'
+//     },
+    // {
+    //   blogid: '4',
+    //   href: 'https://blog.51cto.com/u_15127641/2874133',
+    //   type: 'tech_link',
+    //   title: 'Postfix + Dovecot + MySQL 搭建邮件服务器_51CTO博客_linux搭建postfix邮件服务器',
+    //   description: `Postfix + Dovecot + MySQL 搭建邮件服务器，2015年写的老文章，之前的博客丢失之后恢复。虽然内容可能部分过时，再发出来希望能有
+    // 点作用。网上有很多使用Postfix搭建邮件服务器的文章，但目前貌似没有看到较为完整的一篇。本例将尝试在Ubuntu系统中使用Postfix+Dovecot+MySQL搭建
+    // 邮件服务。说到邮件服务器，网上有许多不同解决方案。Window操作系统下常见的邮件服务器有hMailServer、MailEnable、E`,
+    //   keywords: 'Postfix + Dovecot + MySQL 搭建邮件服务器,MySQL博客,51CTO博客',
+    //   source: 'crawler'
+    // }
+  ]
+
+  const lastData = [
     {
       blogid: '5',
       type: 'tech_app_chatGPT'
-    },
-    {
-      blogid: '3',
-      href: 'https://blog.csdn.net/weixin_44955769/article/details/114690661',
-      type: 'tech_link',
-      title: 'JavaScript 代码执行顺序（一目了然）_文i的博客-CSDN博客_js执行顺序',
-      description: `前言之前对js的执行顺序一直搞得很迷茫，最近考虑换跳槽，又仔细回顾了下这块，又给捡起来了JavaScript 代码执行顺序1.  js的执行顺序，先同步后异步2.  异步中任务队列的执行顺序： 先微任务microtask队列，再宏任务macrotask队列(微任务优先级高于宏任务的前提是：同步代码已经执
-行完成。)3. Promise 里边的代码属于同步代码，.then() 中执行的代码才属于异步代码微任务包括 process.nextTick ，promise ，MutationObser`,
-      keywords: '',
-      source: 'crawler'
     },
     {
       blogid: '2',
@@ -79,17 +97,6 @@ export default function Home() {
       title: 'shot shot shot',
       type: 'life_article'
     },
-    {
-      blogid: '4',
-      href: 'https://blog.51cto.com/u_15127641/2874133',
-      type: 'tech_link',
-      title: 'Postfix + Dovecot + MySQL 搭建邮件服务器_51CTO博客_linux搭建postfix邮件服务器',
-      description: `Postfix + Dovecot + MySQL 搭建邮件服务器，2015年写的老文章，之前的博客丢失之后恢复。虽然内容可能部分过时，再发出来希望能有
-    点作用。网上有很多使用Postfix搭建邮件服务器的文章，但目前貌似没有看到较为完整的一篇。本例将尝试在Ubuntu系统中使用Postfix+Dovecot+MySQL搭建
-    邮件服务。说到邮件服务器，网上有许多不同解决方案。Window操作系统下常见的邮件服务器有hMailServer、MailEnable、E`,
-      keywords: 'Postfix + Dovecot + MySQL 搭建邮件服务器,MySQL博客,51CTO博客',
-      source: 'crawler'
-    }
   ]
 
   const connectWallet = async () => {
@@ -101,6 +108,7 @@ export default function Home() {
 
   const [blogsCover, setBlogsCover] = useState<BlogCardProps>(blogsData)
   const [shuffledList, setShuffledList] = useState<BlogCardProps>([])
+  const [lastDataArr, setLastDataArr] = useState<any>(lastData)
 
   const fetchBlogs = async (params: any) => {
     const data = await collection_blogs(params)
@@ -210,10 +218,10 @@ export default function Home() {
   }
 
   const initShuffledList = async () => {
-    let blogdata = await collection_blogs()
+    // let blogdata = await collection_blogs()
     let articleData = await origin_blogs()
 
-    setShuffledList(shuffle([...blogdata.data, ...articleData.data]))
+    setShuffledList(shuffle([...articleData?.data]))
   }
 
   const blogCardRouter = (blogProps, index) => {
@@ -225,7 +233,21 @@ export default function Home() {
         return <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.blogid} {...blogProps}></BlogCard>;
       case 'tech_app_chatGPT':
         return <CartGPTCard />
+      case 'tech_app_MAP':
+        return <MAPCard />
     }
+  }
+
+  const test = () => {
+    console.log(Wallet.strToHex(), 'test')
+  }
+
+  const showTechLink = async () => {
+    const data = await fetchBlogs()
+
+    await setBlogsCover([])
+    await setLastDataArr([])
+    await setShuffledList(shuffle(data))
   }
 
   useEffect(() => {
@@ -288,10 +310,7 @@ export default function Home() {
           <div className={listStyles.contentList}>
             <div className={listStyles.contentListInner}>
               {
-                [...blogsCover, ...shuffledList].map((blogProps: BlogCardProps, index: number) => (
-                  // blogProps?.type === 'tech_link' ?
-                  // <LinkCard key={blogProps.blogid} {...blogProps}></LinkCard> :
-                  // <BlogCard background={`rgba(0, 0, 0, ${(totalStep - scrollNum) / totalStep})`} key={blogProps.blogid} {...blogProps}></BlogCard>
+                [...blogsCover, ...shuffledList, ...lastDataArr].map((blogProps: BlogCardProps, index: number) => (
                   blogCardRouter(blogProps, index)
                 ))
               }
@@ -306,11 +325,12 @@ export default function Home() {
             </p>
             <p className={listStyles.menu}>
               <a target={'_blank'} href="" rel="noreferrer">生活</a>|
-              <a target={'_blank'} href="" rel="noreferrer">技术剪报</a>|
+              {/* <a target={'_blank'} href="" rel="noreferrer">技术剪报</a>| */}
+              <span onClick={showTechLink}>技术剪报</span>|
               <a target={'_blank'} href="" rel="noreferrer">随笔</a>|
               <Link target={'_blank'} href="/crawler">爬虫</Link>
             </p>
-            <p className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
+            <p onClick={test} className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>
         </div>
       </main>

@@ -37,13 +37,13 @@ export const testChatGPT = async (prompt: string) => {
 
     const response = await axios.post('https://api.openai.com/v1/completions', {
         prompt,
-        max_tokens: 300,
+        max_tokens: 1000,
         model: "text-davinci-003"
     }, 
     {
         headers: {
             'content-type': 'application/json',
-            'Authorization': 'Bearer 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',
+            'Authorization': 'Bearer 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',
             'OpenAI-Organization': 'org-59LRnRGLMms22ZtuMyTacrRB'
         }
     }

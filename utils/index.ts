@@ -22,3 +22,9 @@ export const useCopy = () => {
     }
     return copy;
 }
+
+export const DateParser = (dataStr: string) => {
+    const reg = /(\d{4})+(\d{2})+(\d{2})+(\d{2})+(\d{2})+(\d{2})/
+
+    return dataStr.replace(reg, '$1年$2月$3日 $4时$5分$6秒')
+} 

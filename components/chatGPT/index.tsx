@@ -25,7 +25,7 @@ export const CartGPTCard = () => {
 
         console.log(answer.choices[0].text, 'answer')
 
-        tempQ.push(answer.choices[0].text)
+        tempQ.push(answer.choices[0].text + '\n')
         setDialogues([...tempQ])
     }
 

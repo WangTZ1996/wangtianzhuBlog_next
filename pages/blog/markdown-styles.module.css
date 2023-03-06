@@ -10,3 +10,46 @@
 .reactMarkDown img {
     width: 100%;
 }
+
+.userProfile {
+    background: #F5EFE6;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+.userProfile .mainInfo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.userProfile .mainInfo .chainInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+.userProfile .mainInfo .chainInfo i {
+    font-weight: 900;
+}
+.userProfile .subInfo {
+    width: 100%;
+    margin-top: 6px;
+    text-align: right;
+    font-size: 12px;
+    opacity: 0.7;
+}
+.uploadBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 8px;
+    width: fit-content;
+    box-shadow: rgb(14 14 44 / 40%) 0px 1px;
+    cursor: pointer;
+    margin-left: auto;
+    background: rgb(232, 157, 57);
+}

@@ -3,7 +3,7 @@ import randomStr from "string-random";
 import Decimals from 'decimal.js';
 
 const Web3Eth = require('web3-eth');
-// const Web3Util = require('web3-utils');
+const Web3Util = require('web3-utils');
 const Web3Contract = require('web3-eth-contract');
 
 // const crypto = require("crypto-js");
@@ -666,6 +666,25 @@ class Wallet {
                 reject('Not Find Wallet')
             }
         })
+    }
+
+    testUploadToChain (params: any) {
+        return new Promise(async (resolve, reject) => {
+            let connector = this.getConnector();
+            if (connector) {
+                let result = await connector.request({
+                    method: "eth_sendTransaction",
+                    params
+                })
+                resolve(result)
+            } else {
+                reject('Not Find Wallet')
+            }
+        })
+    }
+
+    strToHex (str: string) {
+        return Web3Util.toHex(str)
     }
 
 }

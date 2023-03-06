@@ -86,6 +86,9 @@
     display: flex;
     gap: 4px;
     margin-bottom: 6px;
+}.rightBar .menu span,
+.rightBar .menu a {
+    cursor: pointer;
 }
 .countDownLine_stop {
     height: 2px;
