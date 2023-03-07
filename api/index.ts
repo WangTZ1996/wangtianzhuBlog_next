@@ -51,7 +51,7 @@ export const testChatGPT = async (prompt: string) => {
     {
         headers: {
             'content-type': 'application/json',
-            'Authorization': 'Bearer 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',
+            'Authorization': 'Bearer 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',
             'OpenAI-Organization': 'org-59LRnRGLMms22ZtuMyTacrRB'
         }
     }

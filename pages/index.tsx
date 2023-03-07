@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
@@ -332,7 +332,7 @@ export default function Home() {
               <span onClick={showTechLink}>技术剪报</span>|
               <a target={'_blank'} href="" rel="noreferrer">随笔</a>|
               <Link target={'_blank'} href="/crawler">爬虫</Link>|
-              <a>网站地图</a>
+              <a target={'_blank'} rel="noreferrer" href={'/websiteMap'}>网站地图</a>
             </p>
             <p onClick={test} className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>

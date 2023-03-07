@@ -42,7 +42,6 @@ export const CartGPTCard = () => {
                 </div>
             </div>
             <div className={styles.content}>
-                {/* <Image alt={'chatGPTBG'} src={'https://www.wangtz.cn/image/chatGPT.png'} width={200} height={200} className={styles.GPTBackground}></Image> */}
                 <pre className={styles.session}>
                     { gptLoading ? <div>chatGPT ...</div> : null}
                     {
