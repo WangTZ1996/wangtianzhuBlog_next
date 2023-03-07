@@ -102,7 +102,7 @@ export default function Blog () {
     return (
         <div style={{ width: '100vw', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Head>
-            <title>{ `${rawData.title} | 王天柱的博客` }</title>
+            <title>{ `${rawData.title || ''} | 王天柱的博客` }</title>
             <meta charSet="utf-8"></meta>
             <meta name="description" content={rawData.description} />
             <meta keywords={rawData.keywords}></meta>
@@ -141,12 +141,12 @@ export default function Blog () {
                       <div>
                         <h1 {...props}></h1>
                         <div className={ style.userProfile }>
-                              {/* { rawData.TransactionHash ? <div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
+                              {/* {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
                                   address: account,
                                   data: Wallet.strToHex(blog)
                                 })}>
                                 文章上链<ArrowUpOutlined />
-                              </div> : null } */}
+                              </div>} */}
                               <div className={style.mainInfo}>
                                   {
                                     rawData.TransactionHash ? <div className={style.author}>
@@ -164,9 +164,11 @@ export default function Blog () {
                                     </div> : null
                                   }
                               </div>
-                              <div className={style.subInfo}>
+                              {
+                                rawData?.chainIdHex ? <div className={style.subInfo}>
                                 本文章已记录在{getChainName(rawData?.chainIdHex)}主链上，点击右侧按钮可以查看
-                              </div>
+                              </div> : null
+                              }
                         </div>
                       </div>
                     )

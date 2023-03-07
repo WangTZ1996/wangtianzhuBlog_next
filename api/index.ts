@@ -42,8 +42,10 @@ export const testChatGPT = async (prompt: string) => {
     }, 
     {
         headers: {
+            'origin': 'http://localhost:3000',
+            'referer': 'http://localhost:3000',
             'content-type': 'application/json',
-            'Authorization': 'Bearer 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',
+            'Authorization': 'Bearer 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',
             'OpenAI-Organization': 'org-59LRnRGLMms22ZtuMyTacrRB'
         }
     }
