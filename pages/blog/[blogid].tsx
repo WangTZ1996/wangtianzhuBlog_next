@@ -116,7 +116,7 @@ export default function Blog () {
                   code({ node, inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || '');
                     return !inline && match ? (
-                      <div>
+                      <div style={{ position: 'relative' }}>
                         <SyntaxHighlighter
                           showLineNumbers={true}
                           style={ prism.darcula }
@@ -126,8 +126,8 @@ export default function Blog () {
                         >
                           {String(children).replace(/\n$/, '')}
                         </SyntaxHighlighter>
-                        <div>
-                          {/* 运行代码的测试运行时 */}
+                        <div style={{ position: 'absolute', top: '10px', right: '10px', color: '#fff' }}>
+                          copy
                         </div>
                       </div>
                     ) : (
@@ -141,7 +141,7 @@ export default function Blog () {
                       <div>
                         <h1 {...props}></h1>
                         <div className={ style.userProfile }>
-                              {/* { !rawData.TransactionHash ? <div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
+                              {/* { rawData.TransactionHash ? <div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
                                   address: account,
                                   data: Wallet.strToHex(blog)
                                 })}>

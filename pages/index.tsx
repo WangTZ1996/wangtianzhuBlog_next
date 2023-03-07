@@ -328,7 +328,8 @@ export default function Home() {
               {/* <a target={'_blank'} href="" rel="noreferrer">技术剪报</a>| */}
               <span onClick={showTechLink}>技术剪报</span>|
               <a target={'_blank'} href="" rel="noreferrer">随笔</a>|
-              <Link target={'_blank'} href="/crawler">爬虫</Link>
+              <Link target={'_blank'} href="/crawler">爬虫</Link>|
+              <a>网站地图</a>
             </p>
             <p onClick={test} className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>
