@@ -25,6 +25,14 @@ export const origin_blog = (params: any) => {
     })
 }
 
+export const origin_blog_from_chain = (params: any) => {
+    return request({
+        url: '/api/originalblogFormChain', 
+        method: 'post', 
+        data: params 
+    })
+}
+
 export const fetch_blog = (params: any) => {
     return request({ 
         url: '/api/fetchblog',
@@ -42,15 +50,12 @@ export const testChatGPT = async (prompt: string) => {
     }, 
     {
         headers: {
-            'origin': 'http://localhost:3000',
-            'referer': 'http://localhost:3000',
             'content-type': 'application/json',
-            'Authorization': 'Bearer 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',
+            'Authorization': 'Bearer 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',
             'OpenAI-Organization': 'org-59LRnRGLMms22ZtuMyTacrRB'
         }
     }
     )
 
-    console.log(response, 'response')
     return response.data
 }

@@ -8,7 +8,7 @@ import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import * as prism from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import * as hljs from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import ReactMarkdown from "react-markdown"
-import { origin_blog } from '@/api'
+import { origin_blog, origin_blog_from_chain } from '@/api'
 
 import opIcon from "@/assets/chain/op.png"
 import fantomIcon from "@/assets/chain/fantom.png"
@@ -36,7 +36,14 @@ export default function Blog () {
             setRawData(blogs.data[0])
             setBlog(blogs.data[0].text)
 
-            console.log(blogs.data[0], 'rawData')
+            // const { TransactionHash, chainIdHex } = blogs.data[0]
+
+            // const blogRaw = await origin_blog_from_chain({
+            //   TransactionHash,
+            //   chainIdHex,
+            // })
+
+            // setBlog(blogRaw.data)
         }
     }
 

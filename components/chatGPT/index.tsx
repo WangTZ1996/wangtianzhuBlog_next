@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
-import { Form } from 'antd'
+import { Form, message } from 'antd'
 import { SendOutlined } from '@ant-design/icons'
 import ReactMarkdown from "react-markdown"
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
@@ -17,6 +17,10 @@ export const CartGPTCard = () => {
     const question = Form.useWatch('question', form)
 
     const askGPT = async () => {
+        if (window.location.hostname !== 'localhost') {
+            message.warning('chatGPT 提问功能目前仅限本地测试，正在努力开发中...')
+            return 
+        }
         let tempQ = [...dialogues, `我：${question}\n`]
         setDialogues(tempQ)
         setGptLoading(true)
@@ -38,6 +42,7 @@ export const CartGPTCard = () => {
                 </div>
             </div>
             <div className={styles.content}>
+                {/* <Image alt={'chatGPTBG'} src={'https://www.wangtz.cn/image/chatGPT.png'} width={200} height={200} className={styles.GPTBackground}></Image> */}
                 <pre className={styles.session}>
                     { gptLoading ? <div>chatGPT ...</div> : null}
                     {

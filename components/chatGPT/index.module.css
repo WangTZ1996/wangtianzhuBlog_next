@@ -5,6 +5,14 @@
     flex-direction: column;
 }
 
+.chatGPTCard .GPTBackground {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.2;
+}
+
 .chatGPTCard .header {
 
 }
@@ -31,6 +39,10 @@
     gap: 12px;
     overflow: hidden;
     padding-top: 12px;
+    background-image: url('https://www.wangtz.cn/image/chatGPT_gray.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 200px 200px;
 }
 .chatGPTCard .content .session {
     flex: 1;

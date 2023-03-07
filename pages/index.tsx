@@ -218,10 +218,13 @@ export default function Home() {
   }
 
   const initShuffledList = async () => {
-    // let blogdata = await collection_blogs()
+    let blogdata = await collection_blogs({ size: 5 })
+
+    console.log(blogdata, 'blogdata')
+
     let articleData = await origin_blogs()
 
-    setShuffledList(shuffle([...articleData?.data]))
+    setShuffledList(shuffle([...blogdata?.data, ...articleData?.data]))
   }
 
   const blogCardRouter = (blogProps, index) => {
