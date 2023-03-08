@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const request = axios.create({
-    // baseURL: 'https://blog.wangtz.cn:8089',
-    baseURL: 'http://127.0.0.1:8089',
+    baseURL: 'https://blog.wangtz.cn:8089',
+    // baseURL: 'http://127.0.0.1:8089',
     timeout: 0,
     headers: {}
 })
