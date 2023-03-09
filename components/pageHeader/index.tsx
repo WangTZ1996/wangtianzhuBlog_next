@@ -30,10 +30,10 @@ export const PageHeader = (props: PageHeaderProp) => {
     return (
         <div className={styles.pageHeader}>
             <div className={styles.msgWrapper}>
-                <div className={ getNewMsg ? styles.getNewMsg : '' }>
+                { msg ? <div className={ getNewMsg ? styles.getNewMsg : '' }>
                     <div className={styles.msgItem}><Image className={styles.msgicon} src={down} alt="msgicon" />{ msg }</div>
                     <div className={styles.msgItem}><Image className={styles.msgicon} src={down} alt="msgicon" />{ curmsg }</div>
-                </div>
+                </div> : null }
             </div>
             {
                 account ? <div className={styles.wallet}>

@@ -106,6 +106,7 @@ export default function Home() {
       setAccount(address)
   }
 
+  const [socketClient, setSocketClient] = useState<any>(null)
   const [blogsCover, setBlogsCover] = useState<BlogCardProps>(blogsData)
   const [shuffledList, setShuffledList] = useState<BlogCardProps>([])
   const [lastDataArr, setLastDataArr] = useState<any>(lastData)
@@ -117,6 +118,7 @@ export default function Home() {
 
   const initWS = async () => {
     let Socket = new WebSocket("wss://www.wangtz.cn:8086");
+    setSocketClient(Socket)
 
     Socket.addEventListener('open',function(){
         console.log('websocket open success')
@@ -124,14 +126,18 @@ export default function Home() {
 
     setTimeout(() => {
       Socket.send('前端发送给后台的信息')
-    }, 3000);
+    }, 1500);
 
     Socket.onmessage = function (evt) {
       setNewmsg(evt.data)
       console.log(evt.data, "接收信息");
     };
+
+    return Socket
   }
   const initCover = async () => {
+    const socket = await initWS()
+
     let video = window.document.getElementsByTagName('video')[0]
 
     let w = window.innerWidth
@@ -139,6 +145,7 @@ export default function Home() {
 
     video.addEventListener('ended', () => {
       console.log('video end')
+      socket.send('videoEnd')
       if (blogsCover[0].isFullScreen) {
         blogsCover[0].back = true
 
@@ -181,6 +188,7 @@ export default function Home() {
           newBolgs.splice(1, 1)
 
           setBlogsCover(newBolgs)
+          socket.send('videoEnd')
         }
         let nw = (w - step * scrollNum) + 'px'
         video.style.width = nw
@@ -264,7 +272,6 @@ export default function Home() {
   useEffect(() => {
     initCover()
     initShuffledList()
-    initWS()
   }, [])
 
   return (
@@ -320,6 +327,9 @@ export default function Home() {
             </div>
           </div>
           <div className={listStyles.rightBar}>
+            <p className={listStyles.menu}>
+              <a target={'_blank'} href="/friendLink" rel="noreferrer">  🔥友情链接🤝</a>
+            </p>
             <p className={listStyles.menu}>
               <a target={'_blank'} href="https://www.wangtz.cn/resume" rel="noreferrer">关于我</a>|
               <a target={'_blank'} href="" rel="noreferrer">开放api服务</a>|

@@ -1,0 +1,35 @@
+.friendLink {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F5EFE6;
+    display: flex;
+    flex-direction: column;
+}
+
+.friendLink .banner {
+    width: 100%;
+    height: 300px;
+    flex-shrink: 0;
+    position: relative;
+}
+.friendLink .banner .connectBtn {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    height: fit-content;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: #1fc7d4;
+    color: #fff;
+    margin-left: auto;
+    cursor: pointer;
+    box-shadow: rgb(14 14 44 / 40%) 0px 1px
+}
+.friendLink .content {
+    width: 660px;
+    max-width: 660px;
+    padding: 20px;
+    margin: 0 auto;
+    background: #fff;
+    flex: 1;
+}
