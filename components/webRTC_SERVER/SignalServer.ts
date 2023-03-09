@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { io, Socket } from 'socket.io-client';
  
 interface Option {
   onJoined?: (message: { roomId: string; userNum: number }) => void;
@@ -19,7 +20,7 @@ export default class SignalServer {
   }
  
   init(option) {
-    this.socket = new WebSocket("wss://www.wangtz.cn:8088");
+    this.socket = io(option.serverUrl || 'wss://www.wangtz.cn:8088/');
     this.socket.connect();
  
     this.socket.on(
