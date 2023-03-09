@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Button, Input, message } from 'antd';
-import SignalServer from './SignalServer';
+import SignalServer from '../../components/webRTC_SERVER/SignalServer';
  
 // import './index.less';
  
