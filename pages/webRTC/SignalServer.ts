@@ -20,7 +20,7 @@ export default class SignalServer {
   }
  
   init(option) {
-    this.socket = io(option.serverUrl || 'http://127.0.0.1:8088/');
+    this.socket = io(option.serverUrl || 'http://www.wangtz.cn:8088/');
     this.socket.connect();
  
     this.socket.on(
