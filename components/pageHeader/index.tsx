@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import down from '@/assets/icons/down.png';
+import menu from '@/assets/icons/menu.png';
 import styles from './index.module.css'
 
 import { showAddress } from '@/utils'
@@ -9,10 +10,11 @@ interface PageHeaderProp {
     msg: string,
     connectWallet: any,
     account: string,
+    toggleModalHandler?: any
 }
 
 export const PageHeader = (props: PageHeaderProp) => {
-    const { msg, connectWallet, account } = props
+    const { msg, connectWallet, account, toggleModalHandler } = props
 
     const [curmsg, setCurmsg] = useState('')
     const [getNewMsg, setGetNewMsg] = useState(false)
@@ -41,6 +43,9 @@ export const PageHeader = (props: PageHeaderProp) => {
                 </div> : <div onClick={connectWallet} className={styles.wallet}>
                     { 'connect wallet' }
                 </div>
+            }
+            {
+                <Image onClick={toggleModalHandler} className={styles.menu_mobile} width={32} height={32} src={menu} alt="menu" />
             }
         </div>
     )

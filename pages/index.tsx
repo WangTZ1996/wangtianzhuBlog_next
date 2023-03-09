@@ -52,31 +52,6 @@ export default function Home() {
       title: '日常卡丁车练习',
       type: 'life_article'
     },
-    // {
-    //   blogid: '5',
-    //   type: 'tech_app_MAP'
-    // },
-//     {
-//       blogid: '3',
-//       href: 'https://blog.csdn.net/weixin_44955769/article/details/114690661',
-//       type: 'tech_link',
-//       title: 'JavaScript 代码执行顺序（一目了然）_文i的博客-CSDN博客_js执行顺序',
-//       description: `前言之前对js的执行顺序一直搞得很迷茫，最近考虑换跳槽，又仔细回顾了下这块，又给捡起来了JavaScript 代码执行顺序1.  js的执行顺序，先同步后异步2.  异步中任务队列的执行顺序： 先微任务microtask队列，再宏任务macrotask队列(微任务优先级高于宏任务的前提是：同步代码已经执
-// 行完成。)3. Promise 里边的代码属于同步代码，.then() 中执行的代码才属于异步代码微任务包括 process.nextTick ，promise ，MutationObser`,
-//       keywords: '',
-//       source: 'crawler'
-//     },
-    // {
-    //   blogid: '4',
-    //   href: 'https://blog.51cto.com/u_15127641/2874133',
-    //   type: 'tech_link',
-    //   title: 'Postfix + Dovecot + MySQL 搭建邮件服务器_51CTO博客_linux搭建postfix邮件服务器',
-    //   description: `Postfix + Dovecot + MySQL 搭建邮件服务器，2015年写的老文章，之前的博客丢失之后恢复。虽然内容可能部分过时，再发出来希望能有
-    // 点作用。网上有很多使用Postfix搭建邮件服务器的文章，但目前貌似没有看到较为完整的一篇。本例将尝试在Ubuntu系统中使用Postfix+Dovecot+MySQL搭建
-    // 邮件服务。说到邮件服务器，网上有许多不同解决方案。Window操作系统下常见的邮件服务器有hMailServer、MailEnable、E`,
-    //   keywords: 'Postfix + Dovecot + MySQL 搭建邮件服务器,MySQL博客,51CTO博客',
-    //   source: 'crawler'
-    // }
   ]
 
   const lastData = [
@@ -107,6 +82,8 @@ export default function Home() {
   }
 
   const [socketClient, setSocketClient] = useState<any>(null)
+  const [showModal, setShowModal] = useState<boolean>(false)
+
   const [blogsCover, setBlogsCover] = useState<BlogCardProps>(blogsData)
   const [shuffledList, setShuffledList] = useState<BlogCardProps>([])
   const [lastDataArr, setLastDataArr] = useState<any>(lastData)
@@ -270,7 +247,13 @@ export default function Home() {
   }, [searchKeywords])
 
   useEffect(() => {
-    initCover()
+    if (document.body.clientWidth <= 500) {
+      setBlogsCover([])
+      setScrollNum(totalStep)
+      initWS()
+    } else {
+      initCover()
+    }
     initShuffledList()
   }, [])
 
@@ -284,7 +267,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <PageHeader msg={newmsg} connectWallet={connectWallet} account={account} />
+        <PageHeader msg={newmsg} connectWallet={connectWallet} toggleModalHandler={() => setShowModal(!showModal)} account={account} />
         <div className={listStyles.content}>
           <div className={listStyles.leftMenu}>
             <div className={listStyles.searcher}>
@@ -325,6 +308,39 @@ export default function Home() {
                 ))
               }
             </div>
+            { showModal ? <div onClick={() => setShowModal(false)} className={[listStyles.menuModal, listStyles.fadein].join(' ')}>
+              <div onClick={ e => e.stopPropagation() } className={[listStyles.menuPad, listStyles.menuUp].join(' ')}>
+                <div className={listStyles.searcher}>
+                  <SearchOutlined style={{ marginRight: '8px', color: '#aaa' }} />
+                  <Form form={form} style={{ flex: 1 }}>
+                    <Form.Item name={'searchKeywords'} style={{ marginBottom: 0 }}>
+                      <input />
+                    </Form.Item>
+                  </Form>
+                </div>
+                {
+                  searchKeywords ? <div className={ startCountDown ? listStyles.countDownLine_start : listStyles.countDownLine_stop }></div> : null
+                }
+                <div onClick={screeningHandler} className={listStyles.classesIcon}>
+                  <div className={listStyles.iconColumn}>
+                    <Image __type={'chatGPT'} width={32} height={32} src="https://www.wangtz.cn/image/chatGPT.png" alt="icon" />
+                    <Image __type={'metamask'} width={40} height={40} src="https://www.wangtz.cn/image/Frame.png" alt="icon" />
+                    <Image __type={'react'} width={32} height={32} src="https://www.wangtz.cn/image/react.png" alt="icon" />
+                  </div>
+                  <div className={listStyles.iconColumn}>
+                    <Image __type={'css'} width={40} height={40} src="https://www.wangtz.cn/image/css.png" alt="icon" />
+                    <Image __type={'html'} width={48} height={48} src="https://www.wangtz.cn/image/html.png" alt="icon" />
+                    <Image __type={'js'} width={48} height={48} src="https://www.wangtz.cn/image/js.png" alt="icon" />
+                    <Image __type={'node'} width={40} height={40} src="https://www.wangtz.cn/image/node.png" alt="icon" />
+                  </div>
+                  <div className={listStyles.iconColumn}>
+                    <Image __type={'chrome'} width={32} height={32} src="https://www.wangtz.cn/image/mongodb.png" alt="icon" />
+                    <Image __type={'vue'} width={40} height={40} src="https://www.wangtz.cn/image/vue.png" alt="icon" />
+                    <Image __type={'ts'} width={32} height={32} src="https://www.wangtz.cn/image/ts.jpg" alt="icon" />
+                  </div>
+                </div>
+              </div>
+            </div> : null }
           </div>
           <div className={listStyles.rightBar}>
             {/* <p className={listStyles.menu}>

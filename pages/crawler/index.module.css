@@ -3,6 +3,7 @@
     height: 100vh;
     overflow: hidden;
     display: flex;
+    padding: 0 16px;
     flex-direction: column;
 }
 .crawler_banner {
