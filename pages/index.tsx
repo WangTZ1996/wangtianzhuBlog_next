@@ -327,9 +327,9 @@ export default function Home() {
             </div>
           </div>
           <div className={listStyles.rightBar}>
-            <p className={listStyles.menu}>
+            {/* <p className={listStyles.menu}>
               <a target={'_blank'} href="/friendLink" rel="noreferrer">  🔥友情链接🤝</a>
-            </p>
+            </p> */}
             <p className={listStyles.menu}>
               <a target={'_blank'} href="https://www.wangtz.cn/resume" rel="noreferrer">关于我</a>|
               <a target={'_blank'} href="" rel="noreferrer">开放api服务</a>|
