@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState, useRef, useMemo } from 'react';
+import Head from 'next/head'
 import { Button, Input, message } from 'antd';
 import SignalServer from '../../components/webRTC_SERVER/SignalServer';
  
@@ -71,7 +72,7 @@ const Simple1v1 = () => {
  
     //获取本地媒体数据
     const getLocalMediaStream = () => {
-      navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(mediaStream => {
+      navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(mediaStream => {
         console.log('------ 成功获取本地设备媒体数据:', mediaStream);
         if (mediaStream) {
           localVideo.current.srcObject = mediaStream;
@@ -206,6 +207,13 @@ const Simple1v1 = () => {
  
   return (
     <div className="one-on-one">
+      <Head>
+        <title>王天柱的博客</title>
+        <meta name="description" content="王天柱的博客--webRTC 点对点通信" />
+        <meta name="google" content="notranslate" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <h1>Simple1v1{tip && `-${tip}`}</h1>
       <div className="one-on-one-container">
         <div className="one-on-one-operation">
