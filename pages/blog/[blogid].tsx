@@ -112,7 +112,7 @@ export default function Blog () {
             <title>{ `${rawData.title || ''} | 王天柱的博客` }</title>
             <meta charSet="utf-8"></meta>
             <meta name="description" content={rawData.description} />
-            <meta keywords={rawData.keywords}></meta>
+            <meta name="keywords" content={rawData.keywords} />
             <meta name="google" content="notranslate" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
@@ -148,12 +148,12 @@ export default function Blog () {
                       <div>
                         <h1 {...props}></h1>
                         <div className={ style.userProfile }>
-                              {/* {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
+                              {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
                                   address: account,
                                   data: Wallet.strToHex(blog)
                                 })}>
                                 文章上链<ArrowUpOutlined />
-                              </div>} */}
+                              </div>}
                               <div className={style.mainInfo}>
                                   {
                                     rawData.TransactionHash ? <div className={style.author}>

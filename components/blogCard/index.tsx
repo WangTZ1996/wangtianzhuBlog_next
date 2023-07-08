@@ -38,8 +38,8 @@ export const BlogCard = (props: BlogCardProps) => {
                 {
                     videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={isShowController} loop={isLoop} >
                         <source src={videoSrc}></source>
-                    </video> : <img className={styles.cover} src={coverSrc} alt=''></img>
-                }
+                    </video> : <img lazy className={styles.cover} src={coverSrc} alt=''></img>
+                } 
                 {
                     isFullScreen ? null : 
                     <Link target={'_blank'} href={'/blog/' + blogid} style={{ width: '100%' }}>
