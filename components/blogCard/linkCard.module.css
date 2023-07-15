@@ -4,6 +4,7 @@
 }
 .linkCard .addressBar {
     padding: 6px 20px;
+    padding-right: 6px;
     background: bisque;
     width: 100%;
     border-radius: 100px;
@@ -19,6 +20,7 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
+    
 }
 .linkCard .title {
     margin-top: 8px;
@@ -34,4 +36,12 @@
 	-webkit-line-clamp: 2;			
 	line-clamp: 2;					
 	-webkit-box-orient: vertical;	
+}
+.linkCard .copyLinkBtn .copyText {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s;
+}
+.linkCard .copyLinkBtn:hover .copyText {
+    width: 3em;
 }

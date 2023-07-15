@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { ArrowUpOutlined } from '@ant-design/icons'
 import Head from 'next/head'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import * as prism from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -96,6 +95,12 @@ export default function Blog () {
       }
     }
 
+    const getGasPrice = async () => {
+      await connectWallet()
+      const gasPrice = await Wallet.getGasPrice()
+      console.log(gasPrice, "gasPrice")
+    }
+
     useEffect(() => {
       if (blogid) {
           initBlog(blogid)
@@ -103,7 +108,8 @@ export default function Blog () {
     }, [blogid])
 
     useEffect(() => {
-      connectWallet()
+      // connectWallet()
+      getGasPrice()
     }, [])
 
     return (
@@ -148,12 +154,12 @@ export default function Blog () {
                       <div>
                         <h1 {...props}></h1>
                         <div className={ style.userProfile }>
-                              {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
+                              {/* {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
                                   address: account,
                                   data: Wallet.strToHex(blog)
                                 })}>
                                 文章上链<ArrowUpOutlined />
-                              </div>}
+                              </div>} */}
                               <div className={style.mainInfo}>
                                   {
                                     rawData.TransactionHash ? <div className={style.author}>

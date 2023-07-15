@@ -108,6 +108,12 @@ export default function Home() {
     Socket.onmessage = function (evt) {
       setNewmsg(evt.data)
       console.log(evt.data, "接收信息");
+      if (/我们一同进步！/.test(evt.data)) {
+        setTimeout(() => {
+          console.log('Socket.send getGasPrice ')
+          Socket.send('getGasPrice')
+        }, 2000);
+      }
     };
 
     return Socket
@@ -122,8 +128,10 @@ export default function Home() {
 
     video.addEventListener('ended', () => {
       console.log('video end')
-      socket.send('videoEnd')
       if (blogsCover[0].isFullScreen) {
+        setTimeout(() => {
+          socket.send('videoEnd')
+        }, 1500);
         blogsCover[0].back = true
 
         let newBlogs = JSON.parse(JSON.stringify(blogsCover))
@@ -165,7 +173,9 @@ export default function Home() {
           newBolgs.splice(1, 1)
 
           setBlogsCover(newBolgs)
-          socket.send('videoEnd')
+          setTimeout(() => {
+            socket.send('videoEnd')
+          }, 1500);
         }
         let nw = (w - step * scrollNum) + 'px'
         video.style.width = nw

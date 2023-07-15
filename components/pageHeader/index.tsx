@@ -33,8 +33,8 @@ export const PageHeader = (props: PageHeaderProp) => {
         <div className={styles.pageHeader}>
             <div className={styles.msgWrapper}>
                 { msg ? <div className={ getNewMsg ? styles.getNewMsg : '' }>
-                    <div className={styles.msgItem}><Image className={styles.msgicon} src={down} alt="msgicon" />{ msg }</div>
-                    <div className={styles.msgItem}><Image className={styles.msgicon} src={down} alt="msgicon" />{ curmsg }</div>
+                    <div className={styles.msgItem}><Image className={styles.msgicon} src={down} alt="msgicon" />{ msg.replace(/t=(.*)/, '') }</div>
+                    <div className={styles.msgItem}><Image className={styles.msgicon} src={down} alt="msgicon" />{ curmsg.replace(/t=(.*)/, '') }</div>
                 </div> : null }
             </div>
             {
