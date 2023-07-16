@@ -291,7 +291,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <script>var _hmt = _hmt || [];</script>
-        <script async src="https://hm.baidu.com/hm.js?c2b396454e5bf3554d71dee6b375bec3" />
+        <script async src="https://hm.baidu.com/hm.js?88cc8f9c8b4930cd7dac9584f4900df8" />
       </Head>
       <main className={styles.main}>
         <PageHeader msg={newmsg} connectWallet={connectWallet} walletLoading={walletLoading} toggleModalHandler={() => setShowModal(!showModal)} account={account} />
