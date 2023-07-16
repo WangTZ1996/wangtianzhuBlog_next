@@ -8,9 +8,11 @@ import * as prism from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import * as hljs from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import ReactMarkdown from "react-markdown"
 import { origin_blog, origin_blog_from_chain } from '@/api'
+import { ArrowUpOutlined } from "@ant-design/icons"
 
 import opIcon from "@/assets/chain/op.png"
 import fantomIcon from "@/assets/chain/fantom.png"
+import okIcon from "@/assets/chain/OKTC.png"
 import shareLink from "@/assets/icons/shareLink.png"
 
 import Wallet from '@/utils/wallet'
@@ -83,6 +85,8 @@ export default function Blog () {
           return opIcon; 
         case '0xfa':
           return fantomIcon;
+        case '0x42':
+          return okIcon;
       }
     }
 
@@ -92,6 +96,8 @@ export default function Blog () {
           return 'Optimistic'; 
         case '0xfa':
           return 'fantom';
+        case '0x42':
+          return 'OKTC';
       }
     }
 
