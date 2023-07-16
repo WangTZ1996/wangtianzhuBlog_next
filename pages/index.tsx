@@ -22,6 +22,7 @@ export default function Home() {
   const [startCountDown, setStartCountDown] = useState(false);
   const [form] = Form.useForm()
   const searchKeywords = Form.useWatch('searchKeywords', form)
+  const [walletLoading, setWalletLoading] = useState(false)
 
   const totalStep = 100
 
@@ -75,10 +76,14 @@ export default function Home() {
   ]
 
   const connectWallet = async () => {
-      await Wallet.connect('metamask')
+    setWalletLoading(true)
 
+    setTimeout(async () => {
+      await Wallet.connect('metamask')
       const address = await Wallet.account()
       setAccount(address)
+      setWalletLoading(false)
+    }, 1500);
   }
 
   const [socketClient, setSocketClient] = useState<any>(null)
@@ -277,7 +282,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <PageHeader msg={newmsg} connectWallet={connectWallet} toggleModalHandler={() => setShowModal(!showModal)} account={account} />
+        <PageHeader msg={newmsg} connectWallet={connectWallet} walletLoading={walletLoading} toggleModalHandler={() => setShowModal(!showModal)} account={account} />
         <div className={listStyles.content}>
           <div className={listStyles.leftMenu}>
             <div className={listStyles.searcher}>

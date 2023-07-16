@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { LoadingOutlined } from "@ant-design/icons"
 import down from '@/assets/icons/down.png';
 import menu from '@/assets/icons/menu.png';
 import styles from './index.module.css'
@@ -9,12 +10,13 @@ import { showAddress } from '@/utils'
 interface PageHeaderProp {
     msg: string,
     connectWallet: any,
+    walletLoading: boolean,
     account: string,
     toggleModalHandler?: any
 }
 
 export const PageHeader = (props: PageHeaderProp) => {
-    const { msg, connectWallet, account, toggleModalHandler } = props
+    const { msg, connectWallet, walletLoading, account, toggleModalHandler } = props
 
     const [curmsg, setCurmsg] = useState('')
     const [getNewMsg, setGetNewMsg] = useState(false)
@@ -40,8 +42,8 @@ export const PageHeader = (props: PageHeaderProp) => {
             {
                 account ? <div className={styles.wallet}>
                     { showAddress(account, 6) }
-                </div> : <div onClick={connectWallet} className={styles.wallet}>
-                    { 'connect wallet' }
+                </div> : <div onClick={connectWallet} style={{ width: walletLoading ? '50px' : '142px' }} className={styles.wallet}>
+                    { walletLoading ? <LoadingOutlined className={styles.walletLoadingIcon} /> : 'connect wallet' }
                 </div>
             }
             {

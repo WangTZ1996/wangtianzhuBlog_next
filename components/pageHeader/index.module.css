@@ -30,13 +30,21 @@
 }
 
 .wallet {
+    width: 142px;
     height: fit-content;
     padding: 4px 12px;
     border-radius: 100px;
     background: #1fc7d4;
     color: #fff;
     cursor: pointer;
-    box-shadow: rgb(14 14 44 / 40%) 0px 1px
+    box-shadow: rgb(14 14 44 / 40%) 0px 1px;
+    transition: width 0.5s;
+    overflow-x: hidden;
+}
+
+.walletLoadingIcon {
+    font-weight: 900;
+    font-size: larger;
 }
 
 .msgWrapper {
