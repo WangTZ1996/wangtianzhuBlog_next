@@ -276,10 +276,12 @@ export default function Home() {
     <div id="pageOuter" className={listStyles.pageOuter}>
       <Head>
         <title>王天柱的博客</title>
-        <meta name="description" content="王天柱的博客" />
+        <meta name="keywords" content="front end，html，编程，互联网，前端，前端开发，智能合约，vue，react，nuxt，next，nodejs，web3，区块链，以太坊，css，html，前端性能优化，UI，交互，metamask，分布式，去中心化，数字游民"/>
+        <meta name="description" content="王天柱的博客 | 王天柱的个人前端技术博客，像收集手办一样收集知识，希望和大家共同进步。" />
         <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <script async src="https://hm.baidu.com/hm.js?c2b396454e5bf3554d71dee6b375bec3" />
       </Head>
       <main className={styles.main}>
         <PageHeader msg={newmsg} connectWallet={connectWallet} walletLoading={walletLoading} toggleModalHandler={() => setShowModal(!showModal)} account={account} />
