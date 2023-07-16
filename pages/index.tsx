@@ -114,10 +114,19 @@ export default function Home() {
       setNewmsg(evt.data)
       console.log(evt.data, "接收信息");
       if (/我们一同进步！/.test(evt.data)) {
-        setTimeout(() => {
+        let timer = setTimeout(() => {
           console.log('Socket.send getGasPrice ')
           Socket.send('getGasPrice')
-        }, 2000);
+          clearTimeout(timer)
+        }, 1000);
+      }
+
+      if (/(wei)/.test(evt.data)) {
+        let timer = setTimeout(() => {
+          console.log('Socket.send getGasPrice ')
+          Socket.send('getGasPrice')
+          clearTimeout(timer)
+        }, 10 * 1000);
       }
     };
 
