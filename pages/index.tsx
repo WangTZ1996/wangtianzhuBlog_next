@@ -281,6 +281,7 @@ export default function Home() {
         <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <script>var _hmt = _hmt || [];</script>
         <script async src="https://hm.baidu.com/hm.js?c2b396454e5bf3554d71dee6b375bec3" />
       </Head>
       <main className={styles.main}>
