@@ -103,7 +103,7 @@ export default function Home() {
 
   const getGasPriceLoop = () => {
     // init Web3 instance
-    const web3 = new Web3Eth('https://eth.llamarpc.com')
+    const web3 = new Web3Eth('https://eth-mainnet.public.blastapi.io')
 
     const getGasPrice = () => {
       const timer = setTimeout(async () => {
