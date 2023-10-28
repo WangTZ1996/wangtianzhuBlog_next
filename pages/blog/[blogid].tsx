@@ -114,8 +114,7 @@ export default function Blog () {
     }, [blogid])
 
     useEffect(() => {
-      // connectWallet()
-      getGasPrice()
+      // getGasPrice()
     }, [])
 
     return (

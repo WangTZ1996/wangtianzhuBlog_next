@@ -14,6 +14,9 @@ import { collection_blogs, origin_blogs, testChatGPT } from "@/api";
 
 import Wallet from '@/utils/wallet'
 
+const Web3Eth = require('web3-eth');
+const Web3Util = require('web3-utils');
+
 export default function Home() {
 
   let   [scrollNum, setScrollNum] = useState(0);
@@ -98,6 +101,22 @@ export default function Home() {
     return data.data
   }
 
+  const getGasPriceLoop = () => {
+    // init Web3 instance
+    const web3 = new Web3Eth('https://eth.llamarpc.com')
+
+    const getGasPrice = () => {
+      const timer = setTimeout(async () => {
+        const gasPrice = await web3.getGasPrice()
+        setNewmsg(`⛽` + Number(Web3Util.fromWei(gasPrice, 'gwei')).toFixed(2) + '(GWei)')
+        clearTimeout(timer)
+        getGasPrice()
+      }, 5 * 1000);
+    }
+
+    getGasPrice()
+  }
+
   const initWS = async () => {
     let Socket = new WebSocket("wss://www.wangtz.cn:8086");
     setSocketClient(Socket)
@@ -116,17 +135,9 @@ export default function Home() {
       if (/我们一同进步！/.test(evt.data)) {
         let timer = setTimeout(() => {
           console.log('Socket.send getGasPrice ')
-          Socket.send('getGasPrice')
+          getGasPriceLoop()
           clearTimeout(timer)
         }, 1000);
-      }
-
-      if (/(wei)/.test(evt.data)) {
-        let timer = setTimeout(() => {
-          console.log('Socket.send getGasPrice ')
-          Socket.send('getGasPrice')
-          clearTimeout(timer)
-        }, 10 * 1000);
       }
     };
 
@@ -227,11 +238,8 @@ export default function Home() {
   }
 
   const initShuffledList = async () => {
-    let blogdata = await collection_blogs({ size: 5 })
-
-    console.log(blogdata, 'blogdata')
-
-    let articleData = await origin_blogs()
+    let blogdata = await collection_blogs({ size: 99999 })
+    let articleData = await origin_blogs({ size: 99999 })
 
     setShuffledList(shuffle([...blogdata?.data, ...articleData?.data]))
   }
