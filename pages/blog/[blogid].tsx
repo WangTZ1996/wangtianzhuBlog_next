@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Head from 'next/head'
+import Decimal from 'decimal.js'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import * as prism from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import * as hljs from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -20,6 +21,8 @@ import { showAddress, useCopy } from '@/utils'
 import style from "./markdown-styles.module.css"
 import "github-markdown-css"
 
+const { Web3, utils } = require('web3')
+
 export default function Blog () {
 
     const router = useRouter();
@@ -35,16 +38,13 @@ export default function Blog () {
 
         if (blogs.data.length) {
             setRawData(blogs.data[0])
-            setBlog(blogs.data[0].text)
+            // setBlog(blogs.data[0].text)
 
-            // const { TransactionHash, chainIdHex } = blogs.data[0]
-
-            // const blogRaw = await origin_blog_from_chain({
-            //   TransactionHash,
-            //   chainIdHex,
-            // })
-
-            // setBlog(blogRaw.data)
+            const { TransactionHash, chainIdHex, rpcUrl } = blogs.data[0]
+            const web3 = new Web3(rpcUrl)
+            const blogRaw = await web3.eth.getTransaction(TransactionHash)
+            console.log(utils.hexToUtf8(blogRaw.data), 'utils')
+            setBlog(utils.hexToUtf8(blogRaw.data))
         }
     }
 
@@ -68,8 +68,8 @@ export default function Blog () {
       console.log(gasLimit, gasPrice, 'upload gas ')
   
       const tran = await Wallet.testUploadToChain([{
-        from: address,
-        to: address,
+        from: '0x2a5Dcbe5a600E47FB43A2aFd0824B05464aaF03E',
+        to: '0x2a5Dcbe5a600E47FB43A2aFd0824B05464aaF03E',
         gas: gasLimit.toString(),
         gasPrice,
         value: '0x0',
@@ -104,7 +104,7 @@ export default function Blog () {
     const getGasPrice = async () => {
       await connectWallet()
       const gasPrice = await Wallet.getGasPrice()
-      console.log(gasPrice, "gasPrice")
+      console.log(utils.fromWei(new Decimal(gasPrice).toNumber(), 'Gwei'), "gasPrice")
     }
 
     useEffect(() => {
@@ -114,8 +114,8 @@ export default function Blog () {
     }, [blogid])
 
     useEffect(() => {
-      // connectWallet()
-      getGasPrice()
+      connectWallet()
+      // getGasPrice()
     }, [])
 
     return (

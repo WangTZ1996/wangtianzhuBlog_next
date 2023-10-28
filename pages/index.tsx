@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
@@ -9,10 +9,11 @@ import { PageHeader, BlogCard, LinkCard, CartGPTCard, MAPCard } from '@/componen
 import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
-
 import { collection_blogs, origin_blogs, testChatGPT } from "@/api";
-
 import Wallet from '@/utils/wallet'
+
+const Web3 = require('web3')
+const { utils } = require('web3')
 
 export default function Home() {
 
@@ -86,7 +87,6 @@ export default function Home() {
     }, 1500);
   }
 
-  const [socketClient, setSocketClient] = useState<any>(null)
   const [showModal, setShowModal] = useState<boolean>(false)
 
   const [blogsCover, setBlogsCover] = useState<BlogCardProps>(blogsData)
@@ -98,9 +98,24 @@ export default function Home() {
     return data.data
   }
 
+  const initGasPriceLoop = () => {
+    const web3 = new Web3.Web3('https://eth-mainnet.public.blastapi.io')
+
+    const looper = () => {
+      const timer = setTimeout(() => {
+        clearTimeout(timer)
+        web3.eth.getGasPrice().then(res => {
+          setNewmsg(`⛽` + Number(utils.fromWei(res, 'Gwei')).toFixed(2) + '(Gwei)')
+          looper()
+        })
+      }, 5 * 1000);
+    }
+
+    looper()
+  }
+
   const initWS = async () => {
     let Socket = new WebSocket("wss://www.wangtz.cn:8086");
-    setSocketClient(Socket)
 
     Socket.addEventListener('open',function(){
         console.log('websocket open success')
@@ -112,21 +127,11 @@ export default function Home() {
 
     Socket.onmessage = function (evt) {
       setNewmsg(evt.data)
-      console.log(evt.data, "接收信息");
       if (/我们一同进步！/.test(evt.data)) {
-        let timer = setTimeout(() => {
-          console.log('Socket.send getGasPrice ')
-          Socket.send('getGasPrice')
+        let timer = setTimeout(async () => {
+          initGasPriceLoop()
           clearTimeout(timer)
         }, 1000);
-      }
-
-      if (/(wei)/.test(evt.data)) {
-        let timer = setTimeout(() => {
-          console.log('Socket.send getGasPrice ')
-          Socket.send('getGasPrice')
-          clearTimeout(timer)
-        }, 10 * 1000);
       }
     };
 
@@ -227,7 +232,7 @@ export default function Home() {
   }
 
   const initShuffledList = async () => {
-    let blogdata = await collection_blogs({ size: 5 })
+    let blogdata = await collection_blogs({ size: 99999 })
 
     console.log(blogdata, 'blogdata')
 

@@ -15,6 +15,9 @@ interface PageHeaderProp {
     toggleModalHandler?: any
 }
 
+const Web3 = require('web3')
+const { utils } = require('web3')
+
 export const PageHeader = (props: PageHeaderProp) => {
     const { msg, connectWallet, walletLoading, account, toggleModalHandler } = props
 
