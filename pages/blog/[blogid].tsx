@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Head from 'next/head'
+import Decimal from 'decimal.js'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import * as prism from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import * as hljs from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -20,6 +21,8 @@ import { showAddress, useCopy } from '@/utils'
 import style from "./markdown-styles.module.css"
 import "github-markdown-css"
 
+const { Web3, utils } = require('web3')
+
 export default function Blog () {
 
     const router = useRouter();
@@ -35,16 +38,15 @@ export default function Blog () {
 
         if (blogs.data.length) {
             setRawData(blogs.data[0])
-            setBlog(blogs.data[0].text)
+            // setBlog(blogs.data[0].text)
 
-            // const { TransactionHash, chainIdHex } = blogs.data[0]
+            const { TransactionHash, chainIdHex } = blogs.data[0]
 
-            // const blogRaw = await origin_blog_from_chain({
-            //   TransactionHash,
-            //   chainIdHex,
-            // })
-
-            // setBlog(blogRaw.data)
+            const rpcUrl = getRPC(chainIdHex)
+            const web3 = new Web3(rpcUrl)
+            const blogRaw = await web3.eth.getTransaction(TransactionHash)
+            console.log(utils.hexToUtf8(blogRaw.data), 'utils')
+            setBlog(utils.hexToUtf8(blogRaw.data))
         }
     }
 
@@ -68,8 +70,8 @@ export default function Blog () {
       console.log(gasLimit, gasPrice, 'upload gas ')
   
       const tran = await Wallet.testUploadToChain([{
-        from: address,
-        to: address,
+        from: '0xa6995dce1D23d74fFd4e1074b388ab91DD93eb4B',
+        to: '0xa6995dce1D23d74fFd4e1074b388ab91DD93eb4B',
         gas: gasLimit.toString(),
         gasPrice,
         value: '0x0',
@@ -101,10 +103,21 @@ export default function Blog () {
       }
     }
 
+    const getRPC = (chainId: any) => {
+      switch (chainId) {
+        case '0xa':
+          return 'https://optimism.llamarpc.com'; 
+        case '0xfa':
+          return 'https://rpc3.fantom.network';
+        case '0x42':
+          return 'https://oktc-mainnet.public.blastapi.io';
+      }
+    }
+
     const getGasPrice = async () => {
       await connectWallet()
       const gasPrice = await Wallet.getGasPrice()
-      console.log(gasPrice, "gasPrice")
+      console.log(utils.fromWei(new Decimal(gasPrice).toNumber(), 'Gwei'), "gasPrice")
     }
 
     useEffect(() => {
@@ -114,6 +127,7 @@ export default function Blog () {
     }, [blogid])
 
     useEffect(() => {
+      connectWallet()
       // getGasPrice()
     }, [])
 
@@ -127,6 +141,8 @@ export default function Blog () {
             <meta name="google" content="notranslate" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
+            <script>var _hmt = _hmt || [];</script>
+            <script async src="https://hm.baidu.com/hm.js?88cc8f9c8b4930cd7dac9584f4900df8" />
           </Head>
           <ReactMarkdown 
               className={["markdown-body", style.reactMarkDown].join(' ')}
@@ -159,12 +175,12 @@ export default function Blog () {
                       <div>
                         <h1 {...props}></h1>
                         <div className={ style.userProfile }>
-                              {/* {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
+                              {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
                                   address: account,
                                   data: Wallet.strToHex(blog)
                                 })}>
                                 文章上链<ArrowUpOutlined />
-                              </div>} */}
+                              </div>}
                               <div className={style.mainInfo}>
                                   {
                                     rawData.TransactionHash ? <div className={style.author}>

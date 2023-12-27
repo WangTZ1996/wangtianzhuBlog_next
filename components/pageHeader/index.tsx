@@ -3,6 +3,7 @@ import Image from "next/image";
 import { LoadingOutlined } from "@ant-design/icons"
 import down from '@/assets/icons/down.png';
 import menu from '@/assets/icons/menu.png';
+import wallet_metamask_icon from '@/assets/icons/metamask.svg'
 import styles from './index.module.css'
 
 import { showAddress } from '@/utils'
@@ -14,6 +15,9 @@ interface PageHeaderProp {
     account: string,
     toggleModalHandler?: any
 }
+
+const Web3 = require('web3')
+const { utils } = require('web3')
 
 export const PageHeader = (props: PageHeaderProp) => {
     const { msg, connectWallet, walletLoading, account, toggleModalHandler } = props
@@ -42,8 +46,8 @@ export const PageHeader = (props: PageHeaderProp) => {
             {
                 account ? <div className={styles.wallet}>
                     { showAddress(account, 6) }
-                </div> : <div onClick={connectWallet} style={{ width: walletLoading ? '50px' : '142px' }} className={styles.wallet}>
-                    { walletLoading ? <LoadingOutlined className={styles.walletLoadingIcon} /> : 'connect wallet' }
+                </div> : <div onClick={connectWallet} style={{ width: walletLoading ? '50px' : '174px' }} className={styles.wallet}>
+                    { walletLoading ? <LoadingOutlined className={styles.walletLoadingIcon} /> : <div className={styles.wallet_connect}>connect wallet<img src={wallet_metamask_icon.src} /></div> }
                 </div>
             }
             {

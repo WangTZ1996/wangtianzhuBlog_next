@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from "next/link";
@@ -9,13 +9,11 @@ import { PageHeader, BlogCard, LinkCard, CartGPTCard, MAPCard } from '@/componen
 import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
-
-import { collection_blogs, origin_blogs, testChatGPT } from "@/api";
-
+import { collection_blogs, origin_blogs, testChatGPT, testTempMail } from "@/api";
 import Wallet from '@/utils/wallet'
 
-const Web3Eth = require('web3-eth');
-const Web3Util = require('web3-utils');
+const Web3 = require('web3')
+const { utils } = require('web3')
 
 export default function Home() {
 
@@ -89,7 +87,6 @@ export default function Home() {
     }, 1500);
   }
 
-  const [socketClient, setSocketClient] = useState<any>(null)
   const [showModal, setShowModal] = useState<boolean>(false)
 
   const [blogsCover, setBlogsCover] = useState<BlogCardProps>(blogsData)
@@ -101,25 +98,24 @@ export default function Home() {
     return data.data
   }
 
-  const getGasPriceLoop = () => {
-    // init Web3 instance
-    const web3 = new Web3Eth('https://eth-mainnet.public.blastapi.io')
+  const initGasPriceLoop = () => {
+    const web3 = new Web3.Web3('https://eth-mainnet.public.blastapi.io')
 
-    const getGasPrice = () => {
-      const timer = setTimeout(async () => {
-        const gasPrice = await web3.getGasPrice()
-        setNewmsg(`⛽` + Number(Web3Util.fromWei(gasPrice, 'gwei')).toFixed(2) + '(GWei)')
+    const looper = () => {
+      const timer = setTimeout(() => {
         clearTimeout(timer)
-        getGasPrice()
+        web3.eth.getGasPrice().then(res => {
+          setNewmsg(`⛽` + Number(utils.fromWei(res, 'Gwei')).toFixed(2) + '(Gwei)')
+          looper()
+        })
       }, 5 * 1000);
     }
 
-    getGasPrice()
+    looper()
   }
 
   const initWS = async () => {
     let Socket = new WebSocket("wss://www.wangtz.cn:8086");
-    setSocketClient(Socket)
 
     Socket.addEventListener('open',function(){
         console.log('websocket open success')
@@ -131,11 +127,9 @@ export default function Home() {
 
     Socket.onmessage = function (evt) {
       setNewmsg(evt.data)
-      console.log(evt.data, "接收信息");
       if (/我们一同进步！/.test(evt.data)) {
-        let timer = setTimeout(() => {
-          console.log('Socket.send getGasPrice ')
-          getGasPriceLoop()
+        let timer = setTimeout(async () => {
+          initGasPriceLoop()
           clearTimeout(timer)
         }, 1000);
       }
@@ -239,7 +233,10 @@ export default function Home() {
 
   const initShuffledList = async () => {
     let blogdata = await collection_blogs({ size: 99999 })
-    let articleData = await origin_blogs({ size: 99999 })
+
+    console.log(blogdata, 'blogdata')
+
+    let articleData = await origin_blogs()
 
     setShuffledList(shuffle([...blogdata?.data, ...articleData?.data]))
   }
@@ -260,6 +257,10 @@ export default function Home() {
 
   const test = () => {
     console.log(Wallet.strToHex(), 'test')
+  }
+
+  const testMail = async () => {
+    await testTempMail()
   }
 
   const showTechLink = async () => {
@@ -389,9 +390,10 @@ export default function Home() {
             </p>
             <p className={listStyles.menu}>
               <a target={'_blank'} href="" rel="noreferrer">生活</a>|
+              <a target={'_blank'} href="https://10mail.wangtz.cn" rel="noreferrer">🔥临时邮箱服务</a>|
               {/* <a target={'_blank'} href="" rel="noreferrer">技术剪报</a>| */}
               <span onClick={showTechLink}>技术剪报</span>|
-              <a target={'_blank'} href="" rel="noreferrer">随笔</a>|
+              {/* <a target={'_blank'} href="" rel="noreferrer">随笔</a>| */}
               <Link target={'_blank'} href="/crawler">爬虫</Link>|
               <a target={'_blank'} rel="noreferrer" href={'/websiteMap'}>网站地图</a>
             </p>
