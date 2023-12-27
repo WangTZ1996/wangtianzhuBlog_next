@@ -47,6 +47,16 @@
     font-size: larger;
 }
 
+.wallet_connect {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.wallet_connect img {
+    height: 24px;
+    width: 24px;
+}
+
 .msgWrapper {
     height: 21px;
     display: flex;

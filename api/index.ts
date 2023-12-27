@@ -59,3 +59,11 @@ export const testChatGPT = async (prompt: string) => {
 
     return response.data
 }
+
+export const testTempMail = async () => {
+    return request({ 
+        url: '/api/tempMail',
+        method: 'post', 
+        data: {} 
+    })
+}

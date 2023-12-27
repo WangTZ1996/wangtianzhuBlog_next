@@ -9,7 +9,7 @@ import { PageHeader, BlogCard, LinkCard, CartGPTCard, MAPCard } from '@/componen
 import type { BlogCardProps } from '@/components'
 import styles from '@/styles/Home.module.css'
 import listStyles from '@/styles/homeList.module.css'
-import { collection_blogs, origin_blogs, testChatGPT } from "@/api";
+import { collection_blogs, origin_blogs, testChatGPT, testTempMail } from "@/api";
 import Wallet from '@/utils/wallet'
 
 const Web3 = require('web3')
@@ -259,6 +259,10 @@ export default function Home() {
     console.log(Wallet.strToHex(), 'test')
   }
 
+  const testMail = async () => {
+    await testTempMail()
+  }
+
   const showTechLink = async () => {
     const data = await fetchBlogs()
 
@@ -386,9 +390,10 @@ export default function Home() {
             </p>
             <p className={listStyles.menu}>
               <a target={'_blank'} href="" rel="noreferrer">生活</a>|
+              <a target={'_blank'} href="https://10mail.wangtz.cn" rel="noreferrer">🔥临时邮箱服务</a>|
               {/* <a target={'_blank'} href="" rel="noreferrer">技术剪报</a>| */}
               <span onClick={showTechLink}>技术剪报</span>|
-              <a target={'_blank'} href="" rel="noreferrer">随笔</a>|
+              {/* <a target={'_blank'} href="" rel="noreferrer">随笔</a>| */}
               <Link target={'_blank'} href="/crawler">爬虫</Link>|
               <a target={'_blank'} rel="noreferrer" href={'/websiteMap'}>网站地图</a>
             </p>
