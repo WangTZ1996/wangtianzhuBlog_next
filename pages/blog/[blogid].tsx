@@ -21,8 +21,6 @@ import { showAddress, useCopy } from '@/utils'
 import style from "./markdown-styles.module.css"
 import "github-markdown-css"
 
-const { Web3, utils } = require('web3')
-
 export default function Blog () {
 
     const router = useRouter();
@@ -38,15 +36,15 @@ export default function Blog () {
 
         if (blogs.data.length) {
             setRawData(blogs.data[0])
-            // setBlog(blogs.data[0].text)
+            setBlog(blogs.data[0].text)
 
-            const { TransactionHash, chainIdHex } = blogs.data[0]
+            // const { TransactionHash, chainIdHex } = blogs.data[0]
 
-            const rpcUrl = getRPC(chainIdHex)
-            const web3 = new Web3(rpcUrl)
-            const blogRaw = await web3.eth.getTransaction(TransactionHash)
-            console.log(utils.hexToUtf8(blogRaw.data), 'utils')
-            setBlog(utils.hexToUtf8(blogRaw.data))
+            // const rpcUrl = getRPC(chainIdHex)
+            // const web3 = new Web3(rpcUrl)
+            // const blogRaw = await web3.eth.getTransaction(TransactionHash)
+            // console.log(utils.hexToUtf8(blogRaw.data), 'utils')
+            // setBlog(utils.hexToUtf8(blogRaw.data))
         }
     }
 
@@ -114,11 +112,11 @@ export default function Blog () {
       }
     }
 
-    const getGasPrice = async () => {
-      await connectWallet()
-      const gasPrice = await Wallet.getGasPrice()
-      console.log(utils.fromWei(new Decimal(gasPrice).toNumber(), 'Gwei'), "gasPrice")
-    }
+    // const getGasPrice = async () => {
+    //   await connectWallet()
+    //   const gasPrice = await Wallet.getGasPrice()
+    //   console.log(utils.fromWei(new Decimal(gasPrice).toNumber(), 'Gwei'), "gasPrice")
+    // }
 
     useEffect(() => {
       if (blogid) {
