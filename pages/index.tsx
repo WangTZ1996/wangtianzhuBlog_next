@@ -99,7 +99,7 @@ export default function Home() {
   }
 
   const initGasPriceLoop = () => {
-    const web3 = new Web3.Web3('https://eth-mainnet.public.blastapi.io')
+    const web3 = new Web3('https://eth-mainnet.public.blastapi.io')
 
     const looper = () => {
       const timer = setTimeout(() => {
