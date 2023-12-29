@@ -1,6 +1,6 @@
 .reactMarkDown {
     width: 100%;
-    max-width: 640px;
+    max-width: 840px;
     margin: 0 auto;
     padding: 16px;
     padding-top: 20px;
@@ -10,6 +10,13 @@
 
 .reactMarkDown img {
     width: 100%;
+    object-fit: contain;
+    max-height: 360px;
+}
+.reactMarkDown > p img:first-child {
+    width: 100%!important;
+    object-fit: cover;
+    max-height: max-content;
 }
 
 .userProfile {

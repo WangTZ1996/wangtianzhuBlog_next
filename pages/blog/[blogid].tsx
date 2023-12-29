@@ -173,12 +173,12 @@ export default function Blog () {
                       <div>
                         <h1 {...props}></h1>
                         <div className={ style.userProfile }>
-                              {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
+                              {/* {<div className={ style.uploadBtn } onClick={() => uploadBlogToChain({
                                   address: account,
                                   data: Wallet.strToHex(blog)
                                 })}>
                                 文章上链<ArrowUpOutlined />
-                              </div>}
+                              </div>} */}
                               <div className={style.mainInfo}>
                                   {
                                     rawData.TransactionHash ? <div className={style.author}>

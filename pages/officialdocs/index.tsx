@@ -60,11 +60,6 @@ export default function OfficialDocs() {
           label: "tailwindcss 官方中文文档",
           url: "https://www.tailwindcss.cn/docs/installation",
         },
-        // {
-        //   type: "frontend",
-        //   label: "next 官网",
-        //   url: "https://nextjs.org/",
-        // },
         {
           type: "frontend",
           label: "next 官方文档",
@@ -140,11 +135,31 @@ export default function OfficialDocs() {
           label: "threejs 官方文档",
           url: "https://threejs.org/docs/index.html#manual/introduction/Creating-a-scene",
         },
-        // {
-        //   type: "frontend",
-        //   label: "官方文档",
-        //   url: "",
-        // },
+        {
+          type: "frontend",
+          label: "sass 官网",
+          url: "https://sass-lang.com/",
+        },
+        {
+          type: "frontend",
+          label: "sass 中文网",
+          url: "https://www.sass.hk/",
+        },
+        {
+          type: "frontend",
+          label: "less 官网",
+          url: "https://lesscss.org/",
+        },
+        {
+          type: "frontend",
+          label: "less 中文网",
+          url: "https://less.bootcss.com/",
+        },
+        {
+          type: "frontend",
+          label: "lerna 官网",
+          url: "https://lerna.js.org/"
+        }
       ],
     },
     {
@@ -211,6 +226,21 @@ export default function OfficialDocs() {
           label: "flask 官方文档",
           url: "https://flask.palletsprojects.com/en/3.0.x/",
         },
+        {
+          type: "backend",
+          label: "docker 官网",
+          url: "https://www.docker.com/"
+        },
+        {
+          type: "backend",
+          label: "docker 官方文档",
+          url: "https://docs.docker.com/"
+        },
+        {
+          type: "backend",
+          label: "zookeeper 官网",
+          url: "https://zookeeper.com/"
+        }
       ],
     },
     {
@@ -257,11 +287,6 @@ export default function OfficialDocs() {
           label: "uniapp 官网",
           url: "https://uniapp.dcloud.net.cn/",
         },
-        // {
-        //   type: "native",
-        //   label: "reactnative 中文网",
-        //   url: 'https://reactnative.cn/'
-        // },
       ],
     },
     {
@@ -283,11 +308,6 @@ export default function OfficialDocs() {
           label: "chrome 浏览器插件官方文档",
           url: "https://developer.chrome.com/docs/extensions?hl=zh-cn",
         },
-        // {
-        //   type: "browser",
-        //   label: "chrome 官方文档",
-        //   url: "https://developer.chrome.com/docs/devtools?hl=zh-cn",
-        // },
       ],
     },
     {
@@ -304,11 +324,16 @@ export default function OfficialDocs() {
           label: "w3c school linux 官方文档",
           url: "https://www.w3cschool.cn/linux/dict.html",
         },
-        // {
-        //   type: "system",
-        //   label: "w3c school linux 官方文档",
-        //   url: "https://www.w3cschool.cn/linux/dict.html",
-        // },
+        {
+          type: "system",
+          label: "git 官网",
+          url: "https://git-scm.com/"
+        },
+        {
+          type: "system",
+          label: "git 官方文档",
+          url: "https://git-scm.com/doc"
+        },
       ],
     },
     {
@@ -345,11 +370,6 @@ export default function OfficialDocs() {
           label: "uniswap 官方文档",
           url: "https://docs.uniswap.org/",
         },
-        // {
-        //   type: "blockchain",
-        //   label: "bitcoin 官方文档",
-        //   url: "https://developer.bitcoin.org/",
-        // },
       ],
     },
   ];

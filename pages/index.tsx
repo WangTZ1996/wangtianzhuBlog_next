@@ -92,9 +92,10 @@ export default function Home() {
   const [blogsCover, setBlogsCover] = useState<BlogCardProps>(blogsData)
   const [shuffledList, setShuffledList] = useState<BlogCardProps>([])
   const [lastDataArr, setLastDataArr] = useState<any>(lastData)
+  const [activeTab, setActiveTab] = useState<any>('blog')
 
   const fetchBlogs = async (params: any) => {
-    const data = await collection_blogs(params)
+    const data = await collection_blogs(Object.assign({ size: 99999 }, params))
     return data.data
   }
 
@@ -204,10 +205,19 @@ export default function Home() {
     window.onmousewheel = document.onmousewheel = scrollFunc
   }
   const screening = async (keywords) => {
+    setActiveTab('clipping')
     const data = await fetchBlogs({ keywords })
 
-    setBlogsCover([])
+    await setBlogsCover([])
+    await setLastDataArr([])
     setShuffledList(data || [])
+  }
+  const handleShowBlog = async () => {
+    setActiveTab('blog')
+    let articleData = await origin_blogs()
+    await setLastDataArr(lastData)
+
+    setShuffledList(shuffle([...articleData?.data]))
   }
   const screeningHandler = (e: any) => {
     for (let key in e.target) {
@@ -227,18 +237,15 @@ export default function Home() {
       res.push(originData.splice(Math.round(Math.random() * (originData.length - 1)), 1))
     }
 
-    console.log(res, 'shuffle res')
     return res.flat()
   }
 
   const initShuffledList = async () => {
-    let blogdata = await collection_blogs({ size: 99999 })
-
-    console.log(blogdata, 'blogdata')
-
+    setActiveTab('blog')
+    // let blogdata = await collection_blogs({ size: 99999 })
     let articleData = await origin_blogs()
 
-    setShuffledList(shuffle([...blogdata?.data, ...articleData?.data]))
+    setShuffledList(shuffle([...articleData?.data]))
   }
 
   const blogCardRouter = (blogProps, index) => {
@@ -269,6 +276,13 @@ export default function Home() {
     await setBlogsCover([])
     await setLastDataArr([])
     await setShuffledList(shuffle(data))
+  }
+
+  const getActive = (tab) => {
+    if (activeTab === tab) {
+      return listStyles.actived
+    }
+    return ''
   }
 
   useEffect(() => {
@@ -317,7 +331,7 @@ export default function Home() {
             {
               searchKeywords ? <div className={ startCountDown ? listStyles.countDownLine_start : listStyles.countDownLine_stop }></div> : null
             }
-            <div onClick={screeningHandler} className={listStyles.classesIcon}>
+            {/* <div onClick={screeningHandler} className={listStyles.classesIcon}>
               <div className={listStyles.iconColumn}>
                 <Image __type={'chatGPT'} width={32} height={32} src="https://www.wangtz.cn/image/chatGPT.png" alt="icon" />
                 <Image __type={'metamask'} width={40} height={40} src="https://www.wangtz.cn/image/Frame.png" alt="icon" />
@@ -333,6 +347,19 @@ export default function Home() {
                 <Image __type={'chrome'} width={32} height={32} src="https://www.wangtz.cn/image/mongodb.png" alt="icon" />
                 <Image __type={'vue'} width={40} height={40} src="https://www.wangtz.cn/image/vue.png" alt="icon" />
                 <Image __type={'ts'} width={32} height={32} src="https://www.wangtz.cn/image/ts.jpg" alt="icon" />
+              </div>
+            </div> */}
+            <div className={listStyles.classesIcon}>
+              <div onClick={screeningHandler} className={[listStyles.clipNewPaper, listStyles.unActived, getActive('clipping')].join(' ')}>
+                <div className={listStyles.firstWorld}>T</div>echnology clippings. 
+                <div className={listStyles.thinLine} />
+                <div className={listStyles.boldLine} />
+                <div className={listStyles.content}>技术剪报</div>
+                <div className={listStyles.text}>这里是我收藏的文链接</div>
+              </div>
+              <div onClick={handleShowBlog} className={[listStyles.blogBtn, listStyles.unActived, getActive('blog')].join(' ')}>
+                <div className={listStyles.blogTitle}>⌨️</div>
+                <div className={listStyles.blogText}>BLOG</div>
               </div>
             </div>
           </div>
@@ -396,6 +423,9 @@ export default function Home() {
               {/* <a target={'_blank'} href="" rel="noreferrer">随笔</a>| */}
               <Link target={'_blank'} href="/crawler">爬虫</Link>|
               <a target={'_blank'} rel="noreferrer" href={'/websiteMap'}>网站地图</a>
+            </p>
+            <p className={listStyles.menu}>
+              <a target={'_blank'} href="https://blog.wangtz.cn/officialdocs" rel="noreferrer">🆙官方文档汇总工具 <i><b>Offical Docs</b></i></a>
             </p>
             <p onClick={test} className={listStyles.menu}>2023 王天柱 京ICP备19003625号</p>
           </div>
