@@ -158,8 +158,8 @@ export default function OfficialDocs() {
         {
           type: "frontend",
           label: "lerna 官网",
-          url: "https://lerna.js.org/"
-        }
+          url: "https://lerna.js.org/",
+        },
       ],
     },
     {
@@ -229,18 +229,18 @@ export default function OfficialDocs() {
         {
           type: "backend",
           label: "docker 官网",
-          url: "https://www.docker.com/"
+          url: "https://www.docker.com/",
         },
         {
           type: "backend",
           label: "docker 官方文档",
-          url: "https://docs.docker.com/"
+          url: "https://docs.docker.com/",
         },
         {
           type: "backend",
           label: "zookeeper 官网",
-          url: "https://zookeeper.com/"
-        }
+          url: "https://zookeeper.com/",
+        },
       ],
     },
     {
@@ -327,12 +327,12 @@ export default function OfficialDocs() {
         {
           type: "system",
           label: "git 官网",
-          url: "https://git-scm.com/"
+          url: "https://git-scm.com/",
         },
         {
           type: "system",
           label: "git 官方文档",
-          url: "https://git-scm.com/doc"
+          url: "https://git-scm.com/doc",
         },
       ],
     },
@@ -410,8 +410,8 @@ export default function OfficialDocs() {
   };
 
   const searchInputChange = (e) => {
-    const inputStr = e.target.value
-    setSearchStr(inputStr)
+    const inputStr = e.target.value;
+    setSearchStr(inputStr);
     const reg = new RegExp(inputStr);
     const resList = dataList.filter((item) => reg.test(item.abstract));
 
@@ -451,8 +451,8 @@ export default function OfficialDocs() {
         <div className={styles.header}>
           <div className={styles.headerMail}>
             <span>📧</span>
-            联系我：
-            <a href="mailto:wangtianzhu@wangtz.cn">wangtianzhu@wangtz.cn</a>
+            联系我
+            <a href="mailto:wangtianzhu@wangtz.cn">：wangtianzhu@wangtz.cn</a>
           </div>
         </div>
         <div className={styles.content}>
@@ -462,6 +462,19 @@ export default function OfficialDocs() {
               className={styles.searchBtn}
             >
               搜索文档
+            </div>
+          </div>
+          <div className={styles.menus}>
+            <div className={styles.menusList}>
+              {categoryList.map((item) => (
+                <div
+                  onClick={() => handleAnchor(item.key)}
+                  className={styles.categoryIndex}
+                  key={item.key}
+                >
+                  {item.label}
+                </div>
+              ))}
             </div>
           </div>
           <div className={styles.listContent}>
@@ -528,7 +541,12 @@ export default function OfficialDocs() {
                   ))}
                 </div>
               ) : null}
-              <div onClick={() => setShowSearchModal(false)} className={styles.modalCloseBtn}>❌️</div>
+              <div
+                onClick={() => setShowSearchModal(false)}
+                className={styles.modalCloseBtn}
+              >
+                ❌️
+              </div>
             </div>
           </div>
         ) : null}
