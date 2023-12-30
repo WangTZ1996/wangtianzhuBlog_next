@@ -12,6 +12,27 @@ export default function OfficialDocs() {
 
   const data = [
     {
+      category: "browser",
+      label: "浏览器",
+      list: [
+        {
+          type: "browser",
+          label: "javascript v8 官网",
+          url: "https://v8.dev/",
+        },
+        {
+          type: "browser",
+          label: "chrome 官方文档",
+          url: "https://developer.chrome.com/docs/devtools?hl=zh-cn",
+        },
+        {
+          type: "browser",
+          label: "chrome 浏览器插件官方文档",
+          url: "https://developer.chrome.com/docs/extensions?hl=zh-cn",
+        },
+      ],
+    },
+    {
       category: "frontend",
       label: "前端开发",
       list: [
@@ -290,27 +311,6 @@ export default function OfficialDocs() {
       ],
     },
     {
-      category: "browser",
-      label: "浏览器",
-      list: [
-        {
-          type: "browser",
-          label: "javascript v8 官网",
-          url: "https://v8.dev/",
-        },
-        {
-          type: "browser",
-          label: "chrome 官方文档",
-          url: "https://developer.chrome.com/docs/devtools?hl=zh-cn",
-        },
-        {
-          type: "browser",
-          label: "chrome 浏览器插件官方文档",
-          url: "https://developer.chrome.com/docs/extensions?hl=zh-cn",
-        },
-      ],
-    },
-    {
       category: "system",
       label: "系统",
       list: [
@@ -335,6 +335,27 @@ export default function OfficialDocs() {
           url: "https://git-scm.com/doc",
         },
       ],
+    },
+    {
+      category: 'trading',
+      label: '交易',
+      list: [
+        {
+          type: 'trading',
+          label: 'klinecharts 官网',
+          url: 'https://klinecharts.com'
+        },
+        {
+          type: 'trading',
+          label: 'klinecharts 官方文档',
+          url: 'https://klinecharts.com/guide/what-is-klinechart.html'
+        },
+        {
+          type: 'trading',
+          label: 'tradingview 官网',
+          url: 'https://www.tradingview.com/'
+        }
+      ]
     },
     {
       category: "blockchain",
@@ -375,6 +396,10 @@ export default function OfficialDocs() {
   ];
   const categoryList = [
     {
+      label: "浏览器",
+      key: "browser",
+    },
+    {
       label: "前端开发",
       key: "frontend",
     },
@@ -387,12 +412,12 @@ export default function OfficialDocs() {
       key: "native",
     },
     {
-      label: "浏览器",
-      key: "browser",
-    },
-    {
       label: "系统",
       key: "system",
+    },
+    {
+      label: '交易',
+      key: 'trading'
     },
     {
       label: "区块链",
