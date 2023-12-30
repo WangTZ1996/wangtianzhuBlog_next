@@ -58,18 +58,14 @@ export default function Blog () {
 
     const uploadBlogToChain = async (params: uploadProps) => {
       const { address, data } = params;
-
-      console.log(account, 'account')
   
       const dataHex = Wallet.strToHex(data)
       const gasPrice = await Wallet.getGasPrice()
       const gasLimit = await Wallet.estimateGas({ to: address, data: dataHex })
   
-      console.log(gasLimit, gasPrice, 'upload gas ')
-  
       const tran = await Wallet.testUploadToChain([{
-        from: '0xa6995dce1D23d74fFd4e1074b388ab91DD93eb4B',
-        to: '0xa6995dce1D23d74fFd4e1074b388ab91DD93eb4B',
+        from: account,
+        to: account,
         gas: gasLimit.toString(),
         gasPrice,
         value: '0x0',
@@ -125,7 +121,7 @@ export default function Blog () {
     }, [blogid])
 
     useEffect(() => {
-      connectWallet()
+      // connectWallet()
       // getGasPrice()
     }, [])
 
