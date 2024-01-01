@@ -393,6 +393,17 @@ export default function OfficialDocs() {
         },
       ],
     },
+    {
+      category: 'editor',
+      label: '富文本编辑器',
+      list: [
+        {
+          type: "editor",
+          label: "bitcoin 官方文档",
+          url: "https://developer.bitcoin.org/",
+        },
+      ]
+    }
   ];
   const categoryList = [
     {
@@ -423,6 +434,10 @@ export default function OfficialDocs() {
       label: "区块链",
       key: "blockchain",
     },
+    {
+      label: "富文本编辑器",
+      key: "editor",
+    }
   ];
 
   const handleAnchor = (type) => {

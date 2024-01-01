@@ -1,0 +1,96 @@
+.reactMarkDown {
+    width: 100%;
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 16px;
+    padding-top: 20px;
+    padding-bottom: 16px;
+    position: relative;
+}
+.btnBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.leftBtns {
+    cursor: pointer;
+}
+.uploadBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 18px;
+    border-radius: 100px;
+    box-shadow: rgb(14 14 44 / 40%) 0px 1px;
+    cursor: pointer;
+    margin-left: auto;
+    background: #1fc7d4;
+    font-weight: 600;
+    color: #fff;
+    height: 32px;
+    transition: width 0.5s;
+    overflow-x: hidden;
+}
+.walletBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uploadBtn img {
+    background: transparent!important;
+    height: 24px;
+    width: 24px;
+    margin-left: 4px;
+}
+.walletLoadingIcon {
+    font-weight: 900;
+    font-size: larger;
+}
+.editorBox {
+    width: 100%;
+    max-width: 840px;
+    padding: 20px 16px;
+    margin: 0 auto;
+}
+.inputLineBox {
+    line-height: 28px;
+    font-size: 18px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.inputLineBox .lineIndex {
+    width: 40px;
+    /* background: #ebebeb; */
+    line-height: 28px;
+    font-size: 16px;
+    text-align: left;
+    color: #999;
+    padding: 1px 6px;
+}
+.inputLineBox input, .inputLineBox textarea {
+    line-height: 28px;
+    font-size: 18px;
+    width: 100%;
+    border: none;
+    outline: none;
+    height: 100%;
+    padding: 0 12px;
+}
+.chainInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    position: relative;
+}
+.chainInfo i {
+    font-weight: 900;
+}
+.chainModal {
+    position: absolute;
+    width: 200px;
+    height: 400px;
+    background-color: #fff;
+}

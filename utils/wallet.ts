@@ -387,6 +387,8 @@ class Wallet {
 
     getWeb3ETH(): any {
         let connector = this.getConnector();
+
+        console.log(connector, 'connector')
         if (connector) {
             return new Web3Eth(connector);
         }
@@ -457,7 +459,13 @@ class Wallet {
     getGasPrice() {
         return new Promise(async (resolve, reject) => {
             try {
-                let result = await this.getWeb3ETH().getGasPrice();
+                // let result = await this.getWeb3ETH().getGasPrice();
+                // @ts-ignore
+                const result = await window.ethereum.request({
+                    "method": "eth_gasPrice",
+                    "params": []
+                  })
+                  console.log(result, 'wallet')
                 resolve(result);
             } catch (e: any) {
                 reject(e.toString())
@@ -672,11 +680,15 @@ class Wallet {
         return new Promise(async (resolve, reject) => {
             let connector = this.getConnector();
             if (connector) {
-                let result = await connector.request({
-                    method: "eth_sendTransaction",
-                    params
-                })
-                resolve(result)
+                try {
+                    let result = await connector.request({
+                        method: "eth_sendTransaction",
+                        params
+                    })
+                    resolve(result)
+                } catch(ex) {
+                    reject('wallet cancel')
+                }
             } else {
                 reject('Not Find Wallet')
             }

@@ -53,15 +53,18 @@ export default function Blog () {
 
       const address = await Wallet.account()
       console.log(address, 'address')
-      setAccount(address)
+      await setAccount(address)
+      return address
     }
 
     const uploadBlogToChain = async (params: uploadProps) => {
+      // const addr = await connectWallet()
+
       const { address, data } = params;
   
       const dataHex = Wallet.strToHex(data)
       const gasPrice = await Wallet.getGasPrice()
-      const gasLimit = await Wallet.estimateGas({ to: address, data: dataHex })
+      const gasLimit = await Wallet.estimateGas({ to: address || addr, data: dataHex })
   
       const tran = await Wallet.testUploadToChain([{
         from: account,
