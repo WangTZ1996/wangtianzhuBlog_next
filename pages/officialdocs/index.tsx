@@ -391,16 +391,46 @@ export default function OfficialDocs() {
           label: "uniswap 官方文档",
           url: "https://docs.uniswap.org/",
         },
+        {
+          type: "blockchain",
+          label: "web3js 官网",
+          url: "https://web3js.org/"
+        },
+        {
+          type: "blockchain",
+          label: "web3js 官方文档",
+          url: "https://docs.web3js.org/"
+        },
+        {
+          type: "blockchain",
+          label: "truffle 官网",
+          url: "https://trufflesuite.com/"
+        },
+        {
+          type: "blockchain",
+          label: "truffle 官方文档",
+          url: "https://trufflesuite.com/docs/"
+        },
+        {
+          type: "blockchain",
+          label: "ethers 中文文档-登链社区",
+          url: "https://learnblockchain.cn/ethers_v5/"
+        }
       ],
     },
     {
-      category: 'editor',
-      label: '富文本编辑器',
+      category: 'game',
+      label: '游戏引擎',
       list: [
         {
-          type: "editor",
-          label: "bitcoin 官方文档",
-          url: "https://developer.bitcoin.org/",
+          type: "game",
+          label: "cocos 官网",
+          url: "https://www.cocos.com/",
+        },
+        {
+          type: "game",
+          label: "cocos 官方文档",
+          url: "https://docs.cocos.com/creator/manual/zh/",
         },
       ]
     }
@@ -435,8 +465,8 @@ export default function OfficialDocs() {
       key: "blockchain",
     },
     {
-      label: "富文本编辑器",
-      key: "editor",
+      label: "游戏引擎",
+      key: "game",
     }
   ];
 
