@@ -104,9 +104,17 @@ export default function Blog() {
 
   const copyHandler = useCopy();
 
-  const deleteLine = (index) => {
+  const deleteLine = (index, text) => {
+    if (index === 0 && inputLines.length === 1) return 
     let temp = inputLines;
     temp.splice(index, 1);
+    temp.forEach((data, i) => {
+      if(i === index - 1) {
+        data.value += text || ''
+        selectionPosition.current = data.value.length;
+        console.log(data.value.length, 'selectionStart')
+      }
+    })
 
     setInputLines([...temp]);
   };
@@ -247,7 +255,8 @@ export default function Blog() {
     inputDom?.focus();
   };
 
-  const addLine = () => {
+  const addLine = (e) => {
+    e.preventDefault()
     let originIndex = curLineIndex.current;
     if (selectionPosition.current >= 0) {
       curLineIndex.current = curLineIndex.current + 1;
@@ -283,15 +292,13 @@ export default function Blog() {
     console.log(inputLines, "inputLines");
   };
 
-  const deleteLineText = async () => {
+  const deleteLineText = async (e) => {
     if (selectionPosition.current === 0 && curLineIndex.current !== 0) {
+      e.preventDefault()
       const curLineData = inputLines.find(
         (line, index) => index === curLineIndex.current
       );
-
-      console.log(curLineIndex.current, curLineData, 'curLineData')
-      
-      deleteLine(curLineIndex.current)
+      deleteLine(curLineIndex.current, curLineData.value)
 
       curLineIndex.current =
         curLineIndex.current === 0 ? 0 : curLineIndex.current - 1;
@@ -304,10 +311,10 @@ export default function Blog() {
     var keyNum = window.event ? event.keyCode : event.which;
 
     if (keyNum == 13) {
-      addLine();
+      addLine(event);
     }
     if (keyNum == 37) {
-      selectionPosition.current = selectionPosition.current - 1;
+      selectionPosition.current = selectionPosition.current - 1 > 0 ? selectionPosition.current - 1 : 0;
     }
     if (keyNum == 39) {
       selectionPosition.current = selectionPosition.current + 1;
@@ -328,7 +335,7 @@ export default function Blog() {
     }
     if (keyNum == 8) {
       if (inputLines.length > 1) {
-        Promise.resolve().then(() => deleteLineText());
+        Promise.resolve().then(() => deleteLineText(event));
       }
     }
   };
@@ -379,6 +386,16 @@ export default function Blog() {
     addKeyBoardListener();
     Wallet.addAccountChangeListener(accountChangeCallback)
   }, []);
+
+  useEffect(() => {
+    if (!!account) {
+      // setInterval(() => {
+      //   Wallet.getBlcokNumber().then((res) => {
+      //     console.log(parseInt(res), 'getBlcokNumber')
+      //   })
+      // }, 1000)
+    }
+  }, [account])
 
   return (
     <div
@@ -442,7 +459,7 @@ export default function Blog() {
                 <h1 {...props}>
                   <input
                     placeholder="请输入标题"
-                    value={"Hello 2024 🎆"}
+                    value={"结绳记事🎆"}
                     style={{
                       border: "none",
                       outline: "none",
@@ -526,7 +543,7 @@ export default function Blog() {
             >
               {index + 1}
             </div>
-            <input
+            {/* <input
               value={line.value}
               placeholder={index === 0 ? '例如：data:,{"p":"asc-20","op":"mint","tick":"ShenLong","amt":"1"}' : ''}
               autoComplete={"off"}
@@ -535,17 +552,14 @@ export default function Blog() {
               id={`lineInput${index}`}
               onClick={(e) => handleClickInput(e, index)}
               onChange={(e) => handleInputChange(e, index)}
-            />
-            {/* <textarea
-              autoComplete={"off"}
-              type="text"
-              name=""
-              rows={1}
-              autosize
-              id={`lineInput${index}`}
-              onClick={(e) => handleClickInput(e, index)}
-              onChange={(e) => handleInputChange(e, index)}
             /> */}
+            <p 
+              value={line.value}
+              contentEditable="true" 
+              id={`lineInput${index}`} 
+              className={ideStyle.inputDiv}
+              onClick={(e) => handleClickInput(e, index)}
+              onChange={(e) => handleInputChange(e, index)}/>
           </div>
         ))}
       </div>

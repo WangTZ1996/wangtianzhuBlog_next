@@ -378,6 +378,11 @@ export default function OfficialDocs() {
         },
         {
           type: "blockchain",
+          label: "remix 官网",
+          url: "https://remix.ethereum.org/",
+        },
+        {
+          type: "blockchain",
           label: "metamask 官网",
           url: "https://metamask.io/",
         },
@@ -413,9 +418,24 @@ export default function OfficialDocs() {
         },
         {
           type: "blockchain",
+          label: "ganache 官网",
+          url: "https://trufflesuite.com/ganache/"
+        },
+        {
+          type: "blockchain",
           label: "ethers 中文文档-登链社区",
           url: "https://learnblockchain.cn/ethers_v5/"
-        }
+        },
+        {
+          type: "blockchain",
+          label: "coingecko api 官方文档",
+          url: "https://www.coingecko.com/api/documentation"
+        },
+        {
+          type: "blockchain",
+          label: "coinmarketcap api 官方文档",
+          url: "https://coinmarketcap.com/api/documentation/v1/"
+        },
       ],
     },
     {

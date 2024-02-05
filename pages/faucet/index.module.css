@@ -1,0 +1,113 @@
+.faucet_page {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.header {
+    font-weight: 900;
+    flex-shrink: 0;
+    background: linear-gradient(#e4e0ba, #f7d9aa);
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 100;
+}
+.headerMail {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+.headerMail span {
+    font-size: 24px;
+    margin-right: 4px;
+}
+
+.banner {
+    width: 100vw;
+    font-size: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+}
+.inputWrapper {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inputWrapper .inputBox {
+    width: 640px;
+    max-width: 90%;
+    height: 42px;
+    border: 1px solid #e4e0ba;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.inputWrapper .inputBox input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 0 14px 0 4px;
+    height: 40px;
+    font-size: 18px;
+}
+
+.inputWrapper .inputBox .inputBtn {
+    flex-shrink: 0;
+    font-size: 24px;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.inputWrapper .addressListWrapper {
+    margin-top: 20px;
+    width: 640px;
+    max-width: 90%;
+    padding: 0 15px;
+    color: #333;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.inputWrapper .addressListWrapper .addressListItem {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 18px;
+    margin-bottom: 6px;
+    width: 100%;
+    overflow: hidden;
+}
+.inputWrapper .addressListWrapper .addressListItem .addr {
+    flex-wrap: wrap;
+    word-break: break-all;
+}
+.inputWrapper .addressListWrapper .addressListItem .statusText {
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.contract {
+    width: 640px;
+    max-width: 90%;
+    margin: 0 auto;
+    display: flex;
+    padding: 0 15px;
+    font-size: 14px;
+    align-items: center;
+    justify-content: space-around;
+}

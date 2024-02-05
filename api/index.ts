@@ -67,3 +67,25 @@ export const testTempMail = async () => {
         data: {} 
     })
 }
+
+export const coinMarket = async () => {
+    return request({
+        url: 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=250&x_cg_demo_api_key=CG-91QHTZtYa7ubJeG2uc6GsZ9j',
+        method: 'get'
+    })
+}
+
+export const coinList_api = async () => {
+    return request({
+        url: 'https://api.coingecko.com/api/v3/coins/list?x_cg_demo_api_key=CG-91QHTZtYa7ubJeG2uc6GsZ9j',
+        method: 'get'
+    })
+}
+
+export const goerli_faucet = async (address: string) => {
+    return request({ 
+        url: '/api/goerli_faucet',
+        method: 'post', 
+        data: { address: address } 
+    })
+}

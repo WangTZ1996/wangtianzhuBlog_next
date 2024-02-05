@@ -1,0 +1,21 @@
+.coinLine {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 10px;
+}
+.coinLine img {
+    width: 24px;
+    height: 24px;
+    /* border-radius: 100px; */
+    /* overflow: hidden; */
+}
+.red {
+    color: red;
+}
+.green {
+    color: green;
+}
+.normal {
+    color: black
+}

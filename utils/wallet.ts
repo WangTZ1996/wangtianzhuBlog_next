@@ -699,6 +699,21 @@ class Wallet {
         return Web3Util.toHex(str)
     }
 
+    getBlcokNumber() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // let result = await this.getWeb3ETH().getGasPrice();
+                // @ts-ignore
+                const result = await window.ethereum.request({
+                    "method": "eth_blockNumber",
+                    "params": []
+                  })
+                resolve(result);
+            } catch (e: any) {
+                reject(e.toString())
+            }
+        })
+    }
 }
 
 export default new Wallet();
