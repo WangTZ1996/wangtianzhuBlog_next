@@ -78,6 +78,11 @@ export default function Faucet() {
         <meta name="google" content="notranslate" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <script>var _hmt = _hmt || [];</script>
+        <script
+          async
+          src="https://hm.baidu.com/hm.js?88cc8f9c8b4930cd7dac9584f4900df8"
+        />
       </Head>
       <div>
         <div className={styles.header}>
