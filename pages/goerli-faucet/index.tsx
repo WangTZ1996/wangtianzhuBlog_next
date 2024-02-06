@@ -5,7 +5,7 @@ import { goerli_faucet } from "@/api";
 import { notification } from 'antd';
 import styles from "./index.module.css";
 
-const faucetContractAddress = "0xe7e97f6c9d0450ac88182a62e7b061bbd034c46e";
+const faucetContractAddress = "0xC4888d88dFfdF73d9f597659531673479E9ac431";
 
 export default function Faucet() {
   const [addressList, setAddressList] = useState([]);
