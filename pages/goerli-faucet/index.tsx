@@ -23,11 +23,11 @@ export default function Faucet () {
         2: 'limegreen'
     }
 
-    const updateList = (id, txId) => {
+    const updateList = (id, txId, status) => {
         const tempList = [...listRef.current]
         tempList.forEach(item => {
             if (item.id === id) {
-                item.status = 2
+                item.status = status
                 item.txId = txId
             }
         })
@@ -47,9 +47,11 @@ export default function Faucet () {
             inputRef.current.value = ""
             try {
                 const res = await goerli_faucet(inputAddress)
-                if (res) {
+                if (res && res.code === 0) {
                     const txId = `https://goerli.etherscan.io/tx/${res.data}`
-                    updateList(id, txId)
+                    updateList(id, txId, 2)
+                } else {
+                    updateList(id, '', 0)
                 }
             } catch(ex) {
                 console.log(ex)
