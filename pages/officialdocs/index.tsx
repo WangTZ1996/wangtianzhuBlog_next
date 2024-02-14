@@ -423,6 +423,11 @@ export default function OfficialDocs() {
         },
         {
           type: "blockchain",
+          label: "openzeppelin 官网",
+          url: "https://www.openzeppelin.com/contracts"
+        },
+        {
+          type: "blockchain",
           label: "ethers 中文文档-登链社区",
           url: "https://learnblockchain.cn/ethers_v5/"
         },

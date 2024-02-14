@@ -34,7 +34,7 @@ export const BlogCard = (props: BlogCardProps) => {
     }
 
     return (
-            <div style={{ 'background-color': background || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card, back ? styles.cardBack : '' ].join(' ')}>
+            <div style={{ 'background-color': isFullScreen ? background : '' || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card, back ? styles.cardBack : '' ].join(' ')}>
                 {
                     videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={isShowController} loop={isLoop} >
                         <source src={videoSrc}></source>

@@ -31,36 +31,38 @@ export default function Home() {
     {
       blogid: '0',
       back: false,
-      videoSrc: 'https://www.wangtz.cn/videos/carding.mp4',
+      // videoSrc: 'https://www.wangtz.cn/videos/carding.mp4',
+      videoSrc: 'https://www.wangtz.cn/videos/shipping.mp4',
       coverSrc: '',
       isAutoPlay: true,
       isMuted: true,
       isLoop: false,
       isFullScreen: true,
       isShowController: false,
-      title: '日常卡丁车练习',
+      title: '渤海海峡航行日志',
       type: 'life_article'
     },
     {
       blogid: '1',
       back: false,
-      videoSrc: 'https://www.wangtz.cn/videos/carding.mp4',
+      // videoSrc: 'https://www.wangtz.cn/videos/carding.mp4',
+      videoSrc: 'https://www.wangtz.cn/videos/shipping.mp4',
       coverSrc: '',
       isAutoPlay: false,
       isMuted: true,
       isLoop: true,
       isShowController: false,
       isFullScreen: false,
-      title: '日常卡丁车练习',
+      title: '渤海海峡航行日志',
       type: 'life_article'
     },
   ]
 
   const lastData = [
-    {
-      blogid: '5',
-      type: 'tech_app_chatGPT'
-    },
+    // {
+    //   blogid: '5',
+    //   type: 'tech_app_chatGPT'
+    // },
     {
       blogid: '2',
       back: false,
