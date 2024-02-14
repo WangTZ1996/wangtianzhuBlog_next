@@ -34,11 +34,11 @@ export const BlogCard = (props: BlogCardProps) => {
     }
 
     return (
-            <div style={{ 'background-color': isFullScreen ? background : '' || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card, back ? styles.cardBack : '' ].join(' ')}>
+            <div style={{ 'backgroundColor': isFullScreen ? background : '' || '' }} className={[ isFullScreen ? styles.fullScreen : '', styles.card, back ? styles.cardBack : '' ].join(' ')}>
                 {
-                    videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload muted poster={coverSrc} autoPlay={isAutoPlay} controls={isShowController} loop={isLoop} >
-                        <source src={videoSrc}></source>
-                    </video> : <img lazy className={styles.cover} src={coverSrc} alt=''></img>
+                    videoSrc && checkVideo(videoSrc) ? <video className={ back ? styles.back : ''} preload="true" muted poster={coverSrc} autoPlay={isAutoPlay} controls={isShowController} loop={isLoop} >
+                        <source src={videoSrc}/>
+                    </video> : <Image width={660} height={300} quality={25} lazy="true" className={styles.cover} src={coverSrc} alt=''/>
                 } 
                 {
                     isFullScreen ? null : 
