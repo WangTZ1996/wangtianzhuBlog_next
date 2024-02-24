@@ -3,13 +3,17 @@ import React, { useState, useEffect, useRef } from "react";
 import Head from "next/head";
 import { goerli_faucet } from "@/api";
 import { notification } from 'antd';
+import loading from "@/assets/loading/loading.gif";
 import styles from "./index.module.css";
+
+const Web3 = require('web3')
 
 const faucetContractAddress = "0xC4888d88dFfdF73d9f597659531673479E9ac431";
 
 export default function Faucet() {
   const [addressList, setAddressList] = useState([]);
   const [isPennding, setIsPennding] = useState(false);
+  const [poolBalance, setPoolBalance] = useState(0);
   const inputRef = useRef(null);
   const listRef = useRef(null);
 
@@ -34,6 +38,22 @@ export default function Faucet() {
     });
     setAddressList(tempList);
   };
+
+  const requestETHPool = async () => {
+    const web3 = new Web3('https://ethereum-goerli-rpc.publicnode.com	')
+    await handleRequestETHBalance(web3)
+
+    setInterval(async () => {
+      await handleRequestETHBalance(web3)
+    }, 5 * 1000)
+  }
+
+  const handleRequestETHBalance = async (web3) => {
+      const balance = await web3.eth.getBalance(faucetContractAddress)
+      const ethBalance = Web3.utils.fromWei(balance, 'ether')
+      console.log(ethBalance, 'ethBalance')
+      setPoolBalance(ethBalance)
+  }
 
   const requestETH = async () => {
     const inputAddress = inputRef.current.value;
@@ -70,6 +90,10 @@ export default function Faucet() {
     }
   };
 
+  useEffect(() => {
+    requestETHPool()
+  }, [])
+
   return (
     <div className={styles.faucet_page}>
       <Head>
@@ -94,8 +118,13 @@ export default function Faucet() {
         </div>
         <div className={styles.banner}>🐳</div>
         <div className={styles.contract}>
-          {/* <span>faucet contract address: </span> */}
+          <p>
+            faucet contract balance: { poolBalance } goerli ETH
+          </p>
           <a
+            rel="noreferrer"
+            target="_blank"
+            style={{ textDecoration: 'underline' }}
             href={`https://goerli.etherscan.io/address/${faucetContractAddress}`}
           >
             faucet contract address: {faucetContractAddress}
@@ -138,6 +167,7 @@ export default function Faucet() {
                     style={{ color: statusColorMapping[item.status] }}
                     className={styles.statusText}
                   >
+                    { item.status == 1 ? <img style={{width: '24px', height: '24px'}} src={loading.src} alt="" /> : null }
                     {statusMapping[item.status]}
                   </span>
                 </div>

@@ -458,6 +458,22 @@ export default function OfficialDocs() {
           url: "https://docs.cocos.com/creator/manual/zh/",
         },
       ]
+    },
+    {
+      category: 'machineLearning',
+      label: '机器学习',
+      list: [
+        {
+          type: "machineLearning",
+          label: "PyTorch 官网",
+          url: "https://pytorch.org/",
+        },
+        {
+          type: "machineLearning",
+          label: "tensorflow 官网",
+          url: "https://tensorflow.google.cn/"
+        }
+      ]
     }
   ];
   const categoryList = [
@@ -492,6 +508,10 @@ export default function OfficialDocs() {
     {
       label: "游戏引擎",
       key: "game",
+    },
+    {
+      label: "机器学习",
+      key: "machineLearning",
     }
   ];
 

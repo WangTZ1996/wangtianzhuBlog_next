@@ -52,6 +52,16 @@
     border-radius: 8px;
 }
 
+.replayBtn {
+    z-index: 100;
+    position: absolute;
+    color: white;
+    font-size: 32px;
+    bottom: 88px;
+    right: 16px;
+    cursor: pointer;
+}
+
 @keyframes back {
     100% {
         width: 660px;

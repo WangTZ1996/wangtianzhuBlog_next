@@ -150,6 +150,7 @@ export default function Home() {
 
     video.addEventListener('ended', () => {
       console.log('video end')
+      blogsCover[0].showReplay = true
       if (blogsCover[0].isFullScreen) {
         setTimeout(() => {
           socket.send('videoEnd')
